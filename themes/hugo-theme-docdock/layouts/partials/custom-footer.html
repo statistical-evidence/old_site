@@ -1,0 +1,17 @@
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+<script src="{{"js/lunr.min.js" | relURL}}"></script>
+<script src="{{"js/auto-complete.js" | relURL}}"></script>
+<script src="{{"js/search.js" | relURL}}"></script>
+{{if eq .Site.Params.highlightClientSide true}}
+<script src="{{"js/highlight.pack.js" | relURL}}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+{{end}}
+<script src="{{"js/featherlight.min.js" | relURL}}"></script>
+<script src="{{"js/html5shiv-printshiv.min.js" | relURL}}"></script>
+<script src="{{"js/modernizr.custom.71422.js" | relURL}}"></script>
+<script src="{{"js/docdock.js" | relURL}}"></script>
+<script src="{{"theme-original/script.js" | relURL}}"></script>
+<script src="{{"js/mathcode.js" | relURL}}"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+{{ template "_internal/google_analytics_async.html" . }}
+

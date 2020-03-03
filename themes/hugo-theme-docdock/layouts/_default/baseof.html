@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{{ partial "original/head.html" . }}
+</head>
+<body data-url="{{ .RelPermalink }}">
+{{ partial "original/body-beforecontent.html" . }}
+{{ block "main" . }}{{ end }}
+{{ partial "original/body-aftercontent.html" . }}
+{{ block "footer" . }}{{ end }}
+{{ partial "custom-footer.html" . }}
+</body>
+</html>

@@ -1,0 +1,197 @@
+[
+{
+	"uri": "/1-data-management/",
+	"title": "Data Management",
+	"tags": [],
+	"description": "hire freelance statistician online for statistics help. this page summarise various tools and function of data management in R",
+	"content": " This section provides complete illustrations of various tools and functions available in R for data management.  How to reshape data - wide or long form in the R programming language     "
+},
+{
+	"uri": "/4-statistical-modelling/4-1-discrete-response/",
+	"title": "Discrete response",
+	"tags": [],
+	"description": "This section includes explanation of statistical model for discrete data in R.hire freelance statistician online for statistics help in dissertation.",
+	"content": "  Generalized linear model (GLM) : Poisson regression for count and rate     "
+},
+{
+	"uri": "/2-data-visualisation/",
+	"title": "Data Visualisation",
+	"tags": [],
+	"description": "This section includes explanation of various data visualisation techniques in R using ggplot2 package.hire freelance statistician online for statistics help in dissertation.",
+	"content": " This section provides complete illustrations of various tools and functions available in R for data visualisation  work is underway  "
+},
+{
+	"uri": "/4-statistical-modelling/4-2-continuous-response/",
+	"title": "Continuous response",
+	"tags": [],
+	"description": "This section includes explanation of statistical model for continuous data in R.hire freelance statistician online for statistics help in dissertation.",
+	"content": ""
+},
+{
+	"uri": "/3-basic-statistics/",
+	"title": "Basic Statistics",
+	"tags": [],
+	"description": "This section is about basic statistics, distributions, t-test, paired t-test, proportion, ratio, risk ratio, rate ratio.hire freelance statistician online for statistics help in dissertation.",
+	"content": " This section comprise some essential and fundamental concepts in statistics  Bootstrapping: Parametric and Non-parametric bootstrap using loops and boot function in R     "
+},
+{
+	"uri": "/4-statistical-modelling/",
+	"title": "Statistical Models",
+	"tags": [],
+	"description": "This section is about statistical model applied in varieties of data type.hire freelance statistician online for statistics help in dissertation.",
+	"content": "This section comprise various statistical modelling techniques applied in variety of data types\n Discrete response    Generalized linear model (GLM) : Poisson regression for count and rate      Continuous response     "
+},
+{
+	"uri": "/3-basic-statistics/bootstrapping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r/",
+	"title": " Bootstrapping: Parametric and Non-parametric bootstrap using loops and boot function in R",
+	"tags": ["parametric", "Non-parametric", "boot"],
+	"description": "This article describes the bootstrap method using loops and boot function. Bootstrap is a resampling method which used the Monte Carlo technique to estimate standard error, confidence interval, bias. The methods include parametric and non-parametric bootstrap",
+	"content": "\rWe first need to understand following some fundamental concepts. The idea behind bootstrapping is very closely aligned with those concepts.\nHere I have created a hypothetical study in which we are interested in finding out the average birth weight of the babies born in the UK at 37 weeks of gestation.\n\rExperiment : To find out the average weight of babies born at 37 weeks in the UK\n\rRandom sample : Random sample means each and every single individual or object has an equal probability of being chosen from the population. For example, in our study, the population is all birth happened in the UK at 37 weeks of gestation. For typical “random sample”, we will need to make sure that each and every birth happening in any corner of the UK, will be participating in our study, from which will choose some of them randomly i.e random sample.\n\rSample data: the recorded observation or quantity from the sample of the population. Now we have gone to one local hospital and got data of the birth-weights from 20 babies. Here is the (hypothetical) sample data.\n\r\r## [1] 3331.608 3549.913 2809.252 2671.465 3383.177 3945.721 3672.601\r## [8] 3922.416 4647.278 4088.246 3718.874 3724.443 3925.457 3112.920\r## [15] 3495.621 3651.779 3240.194 3867.347 3431.015 4163.725\r\rSample statistic : is the quantity of interest from sample data. The quantity of interest in our study is a mean (average). So mean is our sample statistic. So sample statistic in our sample data is 3618,\r\r## [1] 3617.653\r\rSampling distribution (of statistic) : Now we went to take a random sample of 20 babies at numerous hospitals (i.e.multiple times) in the UK. Each time, we calculate the mean birth weight and note down its value. This value will be different in each different hospital (in a statistical sense, the statistic is a random variable, will vary as variation is inherent). Here we went to 100 hospitals and took a sample of 20 babies born at that hospital and calculated the mean birth weight and plotted in the histogram.\r\rrequire(ggplot2)\rggplot(data.frame(statistic), aes(statistic)) + geom_histogram() + labs(x= \u0026quot;Mean\u0026quot;, y= \u0026quot;Freqency\u0026quot;, title = \u0026quot;Distribution of sample means\u0026quot;)\rIt is better to plot the histogram with optimum bin width (see Article from David Freedman) along with density curve using aes(y=..density..).So that the area under the density curve will be 1.\nbinw \u0026lt;- 2*(IQR(statistic)/length(statistic)^(1/3))\rggplot(data.frame(statistic), aes(statistic)) + geom_histogram(aes(y=..density..),binwidth = binw,fill=\u0026quot;darkred\u0026quot;,colour=\u0026quot;black\u0026quot;,size=1) + geom_density(aes(y=..density..),size=1) + labs(x= \u0026quot;Mean\u0026quot;, y= \u0026quot;Density\u0026quot;, title = \u0026quot;Distribution of sample means\u0026quot;)\r\rPopulation parameter : What will be the mean birth-weight of babies born in the UK if we had gone on collecting birthright of each and every single baby born in the UK. This will be only one value that what we are basically interested in. This is called the population parameter. The problem is that we want to estimate that from our limited number of observations (i.e sample data). The sample statistic will help to estimate the population parameter. The sample statistic will also be called point estimator.\n\rStandard error(of statistic) is the standard deviation (SD) of statistic from its sampling distribution. Note that SD is a statistic that measures the variability in data relative to its mean.\n\rConfidence interval : Though we are interested in population parameter i.e single value, what if our sample data may not contain it. We need to provide some measure of it. This can be achieved by building a confidence interval. We can say that the true value of the population lies in some interval with some degree of confidence.\n\r\rSo, in essence, we want to estimate a population parameter from the sampling distribution of the sample statistic. This sampling distribution can be generated by infinite time random sampling.\nThe bootstrap method is one type of re-sampling method, in which sample data (20 birth weights) considered as “population”.From this sample data, we re-sample it with a replacement-large number of time (the 1000’s). The resultant sampling distribution often (not always) approximate the (true) sampling distribution of the statistic.\nPlease note, that this sampling will be done with the replacement. So some single observation may be included many times ( or some may be left out completely). So sample statistic will be varied from each random sample of size n.\nFrom this bootstrapped sampling distribution, which can estimate parameter value, standard errors (standard deviation of sample statistic) and then, calculate the confidence interval.\nLet,\n\r\\(\\theta\\) is population parameter of interest which belongs to unknown population distribution F\n\r\\(\\hat{\\theta}\\) is statistic that estimate the \\(\\theta\\) and we are interests in sampling distribution of \\(\\hat{\\theta}\\) from fitted distribution function \\(\\hat{F}\\)\n\r\\(\\hat{\\theta_0^*}\\),\\(\\hat{\\theta_1^*}\\),\\(\\hat{\\theta_2^*}\\)… bootstrap estimate (statistic) to obtain sampling distribution of \\(\\hat{\\theta^*}\\) is \\(\\hat{F^*}\\). This sampling distribution is good approximation of \\(\\hat{F}\\)\n\r\rNon-Parametric bootstrap\rWe observed the sample data and we are unable to determine from which probability distribution function may have generated this sample data. In this situation, we use empirical distribution function (which is based on observed sample data) to simulate bootstrap samples (using Monte Carlo techniques).\n# loop\rtheta_star \u0026lt;- vector()\rfor (i in 1:1000){\rtheta_star[i] \u0026lt;- mean(sample(df,size=length(df),replace = T))\r# First take sample with replacement from obseerved data of same size \u0026amp; then, calculte sample statistic in each, repeat this 1000 times\r}\rtheta_boot \u0026lt;- mean(theta_star) # bootstrap estimate of theta_hat\rtheta_boot\r## [1] 3617.616\rboot_se \u0026lt;- sd(theta_star) # standard eorrs of the estimate\rboot_se\r## [1] 103.2313\rbias \u0026lt;- theta_boot - mean(df)\rbias\r## [1] -0.03669454\rMSE \u0026lt;- mean((theta_boot- mean(df))^2)\rMSE\r## [1] 0.001346489\rCI \u0026lt;-c(theta_boot-1.96*boot_se,theta_boot +1.96*boot_se)\rCI\r## [1] 3415.283 3819.949\rWe can use a boot function from the boot package in R.It requires a function to calculate sample statistic ( in its statistic argument). The function must include observed data as the first argument and indices ( or weight) in the second argument.\nrequire(boot)\rtheta_star_function \u0026lt;- function(x,i) mean(x[i])\r#\rB \u0026lt;- boot(data = df, statistic = theta_star_function, R=1000, stype = \u0026quot;i\u0026quot; )\rB\r## ## ORDINARY NONPARAMETRIC BOOTSTRAP\r## ## ## Call:\r## boot(data = df, statistic = theta_star_function, R = 1000, stype = \u0026quot;i\u0026quot;)\r## ## ## Bootstrap Statistics :\r## original bias std. error\r## t1* 3617.653 0.2896068 101.2961\rWe can used default plots to see whether bootstrap samples are correctly sampled.\nplot(B)\rOr, one can use ggplot to get the same figure\nbinw \u0026lt;- 2*(IQR(B$t)/length(B$t)^(1/3))\rggplot(data.frame(B$t), aes(B.t)) + geom_histogram(fill=\u0026quot;grey\u0026quot;, colour=\u0026quot;black\u0026quot;, binwidth = binw) + geom_vline(xintercept = B$t0, linetype=\u0026quot;dashed\u0026quot;, size=1) + labs(x=\u0026quot;Bootstrap sample statistic\u0026quot;, title=\u0026quot;Bootstrap sampling distribution of sample mean\u0026quot;)\rWe can get confidence interval by,\nboot.ci(B)\r## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS\r## Based on 1000 bootstrap replicates\r## ## CALL : ## boot.ci(boot.out = B)\r## ## Intervals : ## Level Normal Basic ## 95% (3419, 3816 ) (3414, 3817 ) ## ## Level Percentile BCa ## 95% (3418, 3821 ) (3414, 3816 ) ## Calculations and Intervals on Original Scale\r\rParametric Bootstrap\rOnce we have a sample data, we may think that the observed data may have come from some known probability distribution function ( i.e normal, gamma or poisson or any).\nFor example in our sample birth weights, we may assume that observed birth-weight comes from normal distribution with parameter \\(\\mu\\) = 3617.7 and \\(\\sigma\\) = 464.6 ( which is estimated from observed data). See the below figure,\nggplot(data.frame(df), aes(df)) + geom_density() + labs(x= \u0026quot;birth weight\u0026quot;, title = \u0026quot;Distribution of observed sample birthweights\u0026quot;)\rSo, instead of using observed data ( as a non-parametric bootstrap), we can use normal distribution function with probable parameter estimates ( which most likely the maximum likelihood estimates) for bootstrap re-sampling.\nLet, first do it with help of for loops in R.\ntheta_star \u0026lt;- vector()\rfor (i in 1:1000){\rtheta_star[i] \u0026lt;- mean(rnorm(length(df),mean = 3617.7 ,sd = 464.6))\r}\rtheta_boot \u0026lt;- mean(theta_star) # bootstrap estimate of theta_hat\rtheta_boot\r## [1] 3624.285\rboot_se \u0026lt;- sd(theta_star) # standard eorrs of the estimate\rboot_se\r## [1] 109.4116\rbias \u0026lt;- theta_boot - mean(df)\rbias\r## [1] 6.63217\rMSE \u0026lt;- mean((theta_boot- mean(df))^2)\rMSE\r## [1] 43.98568\rCI \u0026lt;-c(theta_boot-1.96*boot_se,theta_boot +1.96*boot_se)\rCI\r## [1] 3409.838 3838.731\rNow, using boot function,\nFor parametric bootstrap, one has to specify a function in ran.gen arguments, which tell the boots how random sample will be generated ( I mean, from which distribution, parameters you want to generate re-sample). The first argument will be the observed data and the second argument will be parameter estimates.This function should give random samples according to your assumed distribution function.\ngen_function \u0026lt;- function(x,mle) {\rdata \u0026lt;- rnorm(length(x),mle[1],mle[2])\rreturn(data)}\r# function to calculate sample statistic theta_star_function \u0026lt;- function(x,i) mean(x[i])\rThe mle values ( of parameter estimates ) passed to random generator function.\nB \u0026lt;- boot(data = df, sim = \u0026quot;parametric\u0026quot;, ran.gen = gen_function, mle = c(3617.7,464.6), statistic = theta_star_function, R=1000)\rB\r## ## PARAMETRIC BOOTSTRAP\r## ## ## Call:\r## boot(data = df, statistic = theta_star_function, R = 1000, sim = \u0026quot;parametric\u0026quot;, ## ran.gen = gen_function, mle = c(3617.7, 464.6))\r## ## ## Bootstrap Statistics :\r## original bias std. error\r## t1* 3617.653 -3.941167 103.6962\rplot(B)\rboot.ci(B,type = \u0026quot;perc\u0026quot;)\r## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS\r## Based on 1000 bootstrap replicates\r## ## CALL : ## boot.ci(boot.out = B, type = \u0026quot;perc\u0026quot;)\r## ## Intervals : ## Level Percentile ## 95% (3418, 3824 ) ## Calculations and Intervals on Original Scale\r\r"
+},
+{
+	"uri": "/1-data-management/reshaping-data-into-wide-or-long-format-in-r/",
+	"title": "How to reshape data - wide or long form in the R programming language",
+	"tags": ["dataframe", "r", "reshape"],
+	"description": "Reshape data frame or matrix either in wide or long format in R programming language.",
+	"content": "\r\rReshaping though frequently required in data analysis, so often it remains confusing even if you are frequent user of reshape function in R.Here I have provided more explanation with simulated data.\n[1] Wide to long\rWide data: the observation has been made several time but all the observations for given person is recorded in single row in spreadsheet.For example, in clinic, person visiting every month for their blood pressure check, and nurse note down the value for each month in single row which belong to this specific person.\nLet’s first create small wide data\n# wide data\rdf \u0026lt;- data.frame(matrix(data = NA, nrow = 3, ncol = 5, dimnames = list(NULL, paste0(c(\u0026quot;id\u0026quot;,\u0026quot;name\u0026quot;,\u0026quot;jan\u0026quot;,\u0026quot;feb\u0026quot;,\u0026quot;march\u0026quot;)))))\rdf[1,] \u0026lt;- c(1,\u0026quot;A\u0026quot;,123,120,125)\rdf[2,] \u0026lt;- c(2,\u0026quot;B\u0026quot;,140,150,155)\rdf[3,] \u0026lt;- c(3,\u0026quot;C\u0026quot;,96,86,97)\rOur “wide” data look like\n\r\rid\r\rname\r\rjan\r\rfeb\r\rmarch\r\r\r\r\r\r1\r\rA\r\r123\r\r120\r\r125\r\r\r\r2\r\rB\r\r140\r\r150\r\r155\r\r\r\r3\r\rC\r\r96\r\r86\r\r97\r\r\r\r\rNow rather than recording each month’s observation in row, we want data each which only one observation per row for that given person. for that we need to use standard reshape command in R.\nThe reshape has following argument:\n\ridvar : unique identifier for person,place or object on which observations(measurements) are made at different time points or repeatedly. Example Case ID\n\rvarying : if observation for specific individuals are made at different time points, in which columns values are recorded i.e time-varying columns. Example Jan, Feb, March\n\rtimevar: what will be the name of column once the time-varying columns above has been staked in rows. Example Month\n\rtimes : what will be the values (of time) once the time-varying columns above has been staked in rows. Example Jan, Feb, March\n\rv.names: what will be the values (of observations) once the time-varying columns above has been staked in rows. Example BP\n\rdirection: data needs to converted from wide to long format.\n\r\rdf_long \u0026lt;- reshape(df,\ridvar = \u0026quot;id\u0026quot;, #[unique identifier for person,place or object on which observations(measurments) are made at different time points or repeatedly]\rvarying = c(\u0026quot;jan\u0026quot;,\u0026quot;feb\u0026quot;,\u0026quot;march\u0026quot;), # [if observation for specific individulas are made at different time points, in which columns values are recorded i.e time-varying columns ]\rtimevar = \u0026quot;month\u0026quot;, # [what will be the name of column once the timevarying columns above has been staked in rows]\rtimes = c(\u0026quot;jan\u0026quot;,\u0026quot;feb\u0026quot;,\u0026quot;march\u0026quot;),\r# [what will be the values (of time) once the timevarying columns above has been staked in rows]\rv.names = \u0026quot;BP\u0026quot;, # [what will be the values (of observations) once the timevarying columns above has been staked in rows]\rdirection = \u0026quot;long\u0026quot;) # [we want to convert wide df into long one])\rOur “long” data look like\ndf_long \u0026lt;- arrange(df_long, id)\rkable(df_long,format = \u0026quot;html\u0026quot;) %\u0026gt;% kable_styling(full_width = F, position = \u0026quot;center\u0026quot;,font_size = 14)\r\r\rid\r\rname\r\rmonth\r\rBP\r\r\r\r\r\r1\r\rA\r\rjan\r\r123\r\r\r\r1\r\rA\r\rfeb\r\r120\r\r\r\r1\r\rA\r\rmarch\r\r125\r\r\r\r2\r\rB\r\rjan\r\r140\r\r\r\r2\r\rB\r\rfeb\r\r150\r\r\r\r2\r\rB\r\rmarch\r\r155\r\r\r\r3\r\rC\r\rjan\r\r96\r\r\r\r3\r\rC\r\rfeb\r\r86\r\r\r\r3\r\rC\r\rmarch\r\r97\r\r\r\r\rSometime, not only one type of measurement (BP) but also other types (such as Heart rate -HR) are measured and recorded row wise. For example,\nThis data can be converted into “long” by using list for group of time-varying columns for varying\ndf_long \u0026lt;- reshape(df,\ridvar = \u0026quot;id\u0026quot;, varying = list(c(\u0026quot;BP_jan\u0026quot;,\u0026quot;BP_feb\u0026quot;,\u0026quot;BP_march\u0026quot;),c(\u0026quot;HR_jan\u0026quot;,\u0026quot;HR_feb\u0026quot;,\u0026quot;HR_march\u0026quot;) ), timevar = \u0026quot;month\u0026quot;, times = c(\u0026quot;jan\u0026quot;,\u0026quot;feb\u0026quot;,\u0026quot;march\u0026quot;),\rv.names = c(\u0026quot;BP\u0026quot;,\u0026quot;HR\u0026quot;), direction = \u0026quot;long\u0026quot;) \rdf_long \u0026lt;- arrange(df_long, id)\r\r\rid\r\rname\r\rmonth\r\rBP\r\rHR\r\r\r\r\r\r1\r\rA\r\rjan\r\r123\r\r72\r\r\r\r1\r\rA\r\rfeb\r\r120\r\r70\r\r\r\r1\r\rA\r\rmarch\r\r125\r\r71\r\r\r\r2\r\rB\r\rjan\r\r140\r\r85\r\r\r\r2\r\rB\r\rfeb\r\r150\r\r82\r\r\r\r2\r\rB\r\rmarch\r\r155\r\r86\r\r\r\r3\r\rC\r\rjan\r\r96\r\r65\r\r\r\r3\r\rC\r\rfeb\r\r86\r\r52\r\r\r\r3\r\rC\r\rmarch\r\r97\r\r59\r\r\r\r\r\r[2] long to wide\rTo make data “wide” from long, the reshape function will need only two main arguments apart from id.\n\rv.names : which column represent values of the observations in long data ( so that reshape function can transform these values into rows for each ID)\n\rtimevar : which column represent the timing of the observations ( so that reshape function associate it with the value for given time for each ID )\n\r\rHere is the example\ndf_wide \u0026lt;- reshape(df_long,\ridvar = \u0026quot;id\u0026quot;,\r# unique identifier\rv.names = c(\u0026quot;BP\u0026quot;,\u0026quot;HR\u0026quot;),\r# the columns represent the value of the observation (BP,HR)\rtimevar = \u0026quot;month\u0026quot;,\r# the column represent the timing of the observations\rdirection = \u0026quot;wide\u0026quot;,\rsep = \u0026quot;_\u0026quot;\r)\rHere is the wide data\n\r\r\rid\r\rname\r\rBP_jan\r\rHR_jan\r\rBP_feb\r\rHR_feb\r\rBP_march\r\rHR_march\r\r\r\r\r\r1\r\r1\r\rA\r\r123\r\r72\r\r120\r\r70\r\r125\r\r71\r\r\r\r4\r\r2\r\rB\r\r140\r\r85\r\r150\r\r82\r\r155\r\r86\r\r\r\r7\r\r3\r\rC\r\r96\r\r65\r\r86\r\r52\r\r97\r\r59\r\r\r\r\r\r"
+},
+{
+	"uri": "/4-statistical-modelling/4-1-discrete-response/4-1-3-count-response/count-data-models/",
+	"title": "Generalized linear model (GLM) : Poisson regression for count and rate",
+	"tags": ["Poisson", "Quasi-poisson", "Negative binomial", "Zero inflated", "GLM"],
+	"description": "Poisson regression model part of Generalized linear models (GLM), its statistical assumptions and interpretation (risk ratio). Also about zero-inflated,negative binomial and generalized poisson models",
+	"content": "\rWhat is a count ?\rCount is a number which is discrete and non-negative. Discrete means a number which is a countable and distinct. For example, number of road accidents. Road accidents can be 2 or 852 but can not be 2.1 or 85.5. So its discrete i.e integer. This is different to numeric continuous variable (such as blood pressure 120.2,135.9) which modelled differently.\nCount may also have contextual information i.e with time, area or length. Such as number of road accidents in given year, number of rain drops in square meter area. When the count is associated with any denominators, rate can be derived. For example, we observe 25 number of maternity claims from 850 women in year then the rate of claims will be 29 per 1000 women per year.\n\rProbability distribution(s) associated with the count random variable\rFirst we need to clarify what is a distribution.The Distribution is the specification of probability associated with the value taken by random variable on random experiment. For example, in random experiment of counting number of rain drops in square meter area. The random variable is number of rain drops. Once the experiment has been performed, we count the drop which may be 10. The random variable X taken the value of 10.We do this experiment again and its 35. So random variable X has taken the value of 35.\nNow if we know the average rate of some event \\([\\lambda]\\) in which event happening indepdently in time. Then the number of event in any time period has poisson distribution.\nFor example, in neighborhood road, on avaerge 2 cars passing by every hour. We noted the number of cars passing by continuously for 24 hours. We may get following numbers\nset.seed(125)\rrpois(24,2)\r## [1] 3 0 1 1 5 5 2 1 2 2 0 3 1 0 2 2 2 4 2 3 1 3 3 1\rWe can derive the probability associated with each event and plot it with number of cars ( X axis ) and probability associated with it on Y axis\nset.seed(125)\rX \u0026lt;- rpois(24,2)\rprobs \u0026lt;- dpois(X,2)\rrequire(ggplot2)\rggplot(data.frame(X,probs), aes(X,probs)) + geom_bar(stat = \u0026quot;identity\u0026quot;) + scale_x_continuous(breaks=seq(0,5,by=1)) + theme_classic()\rrequire(dummies)\rx \u0026lt;- sample(x=c(\u0026quot;A\u0026quot;,\u0026quot;B\u0026quot;),size=100, replace=TRUE, prob=c(0.5,0.5)) linpred \u0026lt;- cbind(1, dummy(x)[, -1]) %*% c(0.2, 0.4) y \u0026lt;- exp(linpred) df \u0026lt;- data.frame(x,y)\rfit \u0026lt;- glm(y~x,family = poisson(), df)\rsummary(fit)\r## ## Call:\r## glm(formula = y ~ x, family = poisson(), data = df)\r## ## Deviance Residuals: ## Min 1Q Median 3Q Max ## -8.635e-09 -8.635e-09 -8.635e-09 0.000e+00 0.000e+00 ## ## Coefficients:\r## Estimate Std. Error z value Pr(\u0026gt;|z|) ## (Intercept) 0.2000 0.1231 1.624 0.1043 ## xB 0.4000 0.1646 2.430 0.0151 *\r## ---\r## Signif. codes: 0 \u0026#39;***\u0026#39; 0.001 \u0026#39;**\u0026#39; 0.01 \u0026#39;*\u0026#39; 0.05 \u0026#39;.\u0026#39; 0.1 \u0026#39; \u0026#39; 1\r## ## (Dispersion parameter for poisson family taken to be 1)\r## ## Null deviance: 5.9609e+00 on 99 degrees of freedom\r## Residual deviance: 4.0263e-15 on 98 degrees of freedom\r## AIC: Inf\r## ## Number of Fisher Scoring iterations: 4\rThe prime distribution of count is poisson. The other models are available to overcome two majors issues in counts : over-dispersion (or less often under-dispersion) and excess zeros. Or sometime zero is impossible value for the outcome ( such length of stay-no 0 length of stay), in this condition, zero truncated model is useful.\nTo overcome over or under dispersion:\n\rNegative Binomial distribution (NB)\rPoisson Inverse Gaussian (PIG)\rGeneralized Negative Binomial Model\rGeneralised Poisson\rHeterogeneous Negative Binomial model (NB-H)\r\rTo ovecome excess zero’s:\n\rzero-inflated Poisson (ZIP)\rzero-inflated negative binomial (ZINB)\rHurdle model\r\rTo model outcome where 0 is impossible value\n\rzero truncated models\r\rFigure 1 Models for count data: mean-variance relationships and its parameterisation\n\r1 Poisson distribution\r\rsingle parameter\rmean \\([\\mu]\\) is equal to variance \\([\\mu]\\), also called dispersion\rin real life datasets, more often there will be higher variability or correlation than model allows (over-dispersion) which leads to biased standard errors ( so as misleading significance of covariate)\r\r\r2 Negative Binomial\r\rhas additional dispersion parameter \\([\\alpha]\\) to accommodate excess variability. when the dispersion parameter is zero,\rthe model becomes Poisson\rcan be traditional negative binomial (NB1) or quadratic negative binomial (NB2)\rOnly correct over-dispersion ( not under-dispersion of poisson)\rform of Poisson-gamma mixture with dispersion parameter \\([\\alpha]\\) has gamma distribution. Gamma distribution is very flexible in shape so most (not all) dispersed count data modelled well with NB\rIt is possible that NB may not correct over-dispersion in a Poisson model\r\r\r3 Poisson Inverse Gaussian (PIG)\r\rSimiller to negative binomial except the dispersion parameter \\([\\alpha]\\) has inverse Gaussian distribution\rAvailable in R gamlass package\r\r\r4 Generalized Negative Binomial Model (GNB)\r\rThe GNB parametrizes the exponent on the second term of the\rnegative binomial variance.\rTo get initial idea whether data is suited to NB1 or NB2 or NB-P\r\r\r5 Generalised Poissson Models\r\rSi miller to above models but dispersion parameter can take negative values which also correct under dispersion if present\r\r\r6 Heterogeneous Negative Binomail model (NB-H)\r\rDispersion parameter can be associated with particular covariate which bring significant dispersion in the model.\r\r\r7 Exact poisson regression\rfor unbalanced and sparse count data\nIn count model log of count are modelled with respect to linear predictors. This is will make sure that predicted count will always be positive.\nThe expected percentage of zero counts on the basis of the Poisson\rmodel is under 1%. If mean of count response is 5 or below and some 30% of the count observations consist of zeros,ZIP or ZINB will be good choice.\nArticle is being updated …\nRef:\nHilbe, J. (2014). Modeling Count Data. Cambridge: Cambridge University Press. doi:10.1017/CBO9781139236065\n\r\r"
+},
+{
+	"uri": "/",
+	"title": "Home",
+	"tags": [],
+	"description": "",
+	"content": " Hire statistician for your research project online | Ask statistics About me I am a Research Associate (Statistician) at the University of Bristol, and previously I worked as Statistician in Centre for the Prevention of Stroke and Dementia, University of Oxford. I hold masters in Medical Statistics from the University of Leicester where I also hold specialization in Genetic Epidemiology. I am also John Henry Brookes Scholar of Oxford Brookes University.\nI have extensive experience in analysing longitudinal, time to event data from epidemiological studies. As a mix of both, theoretical and applied Statistician, I thrive to explore and apply novel statistical models to data of various types. Most recently, this has included the implementation of multivariate time series models to explore the relationship between multiple time-series. My other interests are clinical trial design and analysis, survival analysis, mixed models and analysis of data-set with statistical complexities(i.e. with missing data, sparse or unbalanced). I am a proud R user and experienced in analysing data with STATA, WinBUGS, StatXact, and MLWin.\nI am fully registered with our professional body Royal Statistical Society UK (Registration number 125676). You can search the RSS register with the surname - Prajapati.\nThe plethora of web resources available online about how to use statistical tools (like A-\u0026gt;B-\u0026gt;C) but very few explained why. And, I also firmly believe that difficulties faced by many in the field of statistics do not from the science itself but how it has been taught and practised. My aim of developing this repository is to enhance the understanding of the subject, and to share my experience in implementing complex statistical methods. Services I offer  Advice on proposed study, optimum study design and it\u0026rsquo;s conduct and analysis in context of statistical power and validity Data collection methods and data management, Survey design and analysis Formulating statistical analysis plan, choice of methods and interpretation Complex statistical modelling in variety of data types Publication ready graphics and report writing for research articles, thesis or abstract     Don\u0026rsquo;t Fill This Out If You\u0026rsquo;re Human:\u0026rdquo; Send me a message by simply filling up the form and press the send button Message  \n\n Feel free to contact me on  Email : Statistician-Online@outlook.com \n\n+44 7392 339 862 \nSkype Statistician-Online \n  Timely completion | Detailed Analysis using robust statistics methods | Reliable | Economical The views and opinions expressed in this site are those of the author and do not necessarily reflect the official policy or position of any university or author\u0026rsquo;s past or current employer\n "
+},
+{
+	"uri": "/_header/",
+	"title": "",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/boot/",
+	"title": "Boot",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/categories/bootstrap/",
+	"title": "Bootstrap",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/categories/data-management/",
+	"title": "Data Management",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/dataframe/",
+	"title": "Dataframe",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/glm/",
+	"title": "Glm",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/categories/glm/",
+	"title": "Glm",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/negative-binomial/",
+	"title": "Negative Binomial",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/non-parametric/",
+	"title": "Non Parametric",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/parametric/",
+	"title": "Parametric",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/poisson/",
+	"title": "Poisson",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/quasi-poisson/",
+	"title": "Quasi Poisson",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/r/",
+	"title": "R",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/reshape/",
+	"title": "Reshape",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/zero-inflated/",
+	"title": "Zero Inflated",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/thankyou/",
+	"title": "thank you",
+	"tags": [],
+	"description": "",
+	"content": "Thank you for getting in touch with me. I will be in touch with you shortly..\nGo To Homepage  "
+}]

@@ -1,0 +1,35 @@
+---
+title: "New post guidelines"
+author: "Chetan"
+date: "2 February 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Steps:  
+
+- first determine where your post will go in hiarchy of the folder.
+- go to "addines" in Rstudio and choose new post.
+**Title** : the title you put in addines option will seen as it is (long) in sidebar.To avoid that please add other front matter "menuTitle"
+**menuTitle** :
+**subdirectorty** : \desiredfolder [ do not forget \ before folder name, no need to put \ again after desired folder name]
+**keywords**: 
+-
+-
+**description** : add description which wont be seen on webpage but when it shared on social media
+**alwaysopen** : true ( to keep open sidebar menu while looking at pages)
+
+add image for specifoc page which will be sharrd on social media
+
+pageimage:
+  image:
+    url: "/imgages/Reshape.jpg"
+    width: 800
+    height: 600
+
+
+always add image via alt tag for SEO
+<img alt="description of image" src="/images/xyz.png" height="300px" width="400px" />

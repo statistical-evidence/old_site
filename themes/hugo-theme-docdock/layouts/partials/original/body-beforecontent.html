@@ -1,0 +1,36 @@
+<header> 
+<nav id="sidebar" class="{{if $.Site.Params.showVisitedLinks }}showVisitedLinks{{end}}">
+<div class="highlightable">
+<div id="header-wrapper">
+<div id="header"> {{ partial "logo.html" . }} </div>
+<div class="searchbox">
+<label for="search-by"><i class="fa fa-search"></i></label>
+<input data-search-input id="search-by" type="text" placeholder="{{T "Search-placeholder"}}">
+<span data-search-clear=""><i class="fa fa-close"></i></span></div>
+<script>var baseurl = "{{.Site.BaseURL}}"; </script>
+</div>
+<ul class="topics">
+<li data-nav-id="{{"/" | relLangURL}}" class="dd-item">
+<a href="{{"/" | relLangURL}}" title = "Home" ><i class="fa fa-fw fa-home"></i></a></li>
+{{- partial "menu.html" . }}
+{{- with .Site.Menus.shortcuts}} {{- range sort . "Weight"}}
+<li> {{- .Pre -}} <a href="{{.URL}}" target="_blank" rel="noopener">{{safeHTML .Name}} </a> {{- .Post -}} </li> {{- end}}
+{{- if $.Site.Params.showVisitedLinks}}
+<li><a id="clear-history" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> {{T "Clear-History"}}</a></li>
+{{- end}}
+{{- end}}
+</ul></div></nav></header>
+
+<main id="body">
+<div class="padding highlightable"> 
+{{if not .IsHome}}
+<nav> <div id="top-bar"> <div id="breadcrumbs">
+<span id="sidebar-toggle-span"> <a href="#" id="sidebar-toggle" data-sidebar-toggle=""> <i class="fa fa-bars"></i> </a></span><span class="links">
+{{ template "breadcrumb" dict "page" . "value" .Title }}   
+</span></div></div></nav>{{end}}
+
+<article id="body-inner">
+<header> {{if not .IsHome}} <h1>{{.Title}}</h1> {{end}} </header>
+{{if not .IsHome}}{{ if .Site.Params.socialShare }}
+<div id="social-share"> <ul class="icons">{{ partial "share-links" . }}</ul>
+ </div> {{ end }}{{ end }}

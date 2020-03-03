@@ -1,0 +1,85 @@
+Article
+author
+author.name
+dateModified
+datePublished
+headline
+description
+mainEntityOfPage
+publisher = organozation
+publisher.name
+publisher.logo
+publisher.logo.height
+publisher.logo.width
+publisher.logo.url
+image : 1x1/photo.jpg,4x3/photo.jpg",16x9/photo.jpg
+
+
+
+###################### Logo ###########################
+
+The logo must be a rectangle, not a square.
+The logo should fit in a 60x600px rectangle, and either be exactly 60px high (preferred), or exactly 600px wide. For example, 450x45px would not be acceptable, even though it fits within the 600x60px rectangle.
+Publishers should use only one logo per brand that is consistent across general AMP pages.
+Use full wordmark or full logo; not an icon.
+The text in word-based logos should be at most 48px tall and centered vertically within the 60px image height. Add additional space to pad the height to 60px.
+Logos with a solid background should include 6px minimum padding around the graphic.
+
+
+##################### Images ###############################
+
+
+Only a marked-up image that directly belongs to the article should be specified.
+Images should be at least 1200 pixels wide.
+Every page must contain at least one image (whether or not you include markup). Google will pick the best image to display in Search results based on the aspect ratio and resolution.
+Image URLs must be crawlable and indexable.
+Images must represent the marked up content.
+Images must be in .jpg, .png, or .gif format.
+For best results, provide multiple high-resolution images (minimum of 800,000 pixels when multiplying width and height) with the following aspect ratios: 16x9, 4x3, and 1x1.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "NewsArticle",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://google.com/article"
+  },
+  "headline": "Article headline",
+  "image": [
+    "https://example.com/photos/1x1/photo.jpg",
+    "https://example.com/photos/4x3/photo.jpg",
+    "https://example.com/photos/16x9/photo.jpg"
+   ],
+  "datePublished": "2015-02-05T08:00:00+08:00",
+  "dateModified": "2015-02-05T09:20:00+08:00",
+  "author": {
+    "@type": "Person",
+    "name": "John Doe"
+  },
+   "publisher": {
+    "@type": "Organization",
+    "name": "Google",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://google.com/logo.jpg"
+    }
+  },
+  "description": "A most wonderful article"
+}
+</script>

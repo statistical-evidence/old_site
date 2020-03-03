@@ -1,0 +1,173 @@
+Statistician-Online
+https://www.statistician-online.com/
+
+meta: hire,statistician, online, statistics,help
+des: UK based freelance statistician with academic research experience -Data analysis using robust statistical methods -Hire a statistician at affordable rates
+
+Chetan
+Chetan.prajapati@aol.com
+chetan.obu@gmail.com
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-134274550-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-134274550-1',{ 'optimize_id': 'GTM-WP8NZ63'});
+</script>
+
+-----------------tags----------------
+{{if .Params.tags }}
+  <div id="tags">
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "LocalBusiness",
+  "name" : "Statswork",
+  "image" : "/logo.png",
+  "description": "",
+  "brand": {
+    "@type": "Thing",
+    "name": "STATS WORK"
+  },
+  "telephone" : "India: +91-8754446690 UK : +44-1223926607 US: +1-9725029262",
+  "email" : "info@statswork.com",
+  "address" : {
+    "@type" : "PostalAddress",
+    "streetAddress" : "#10, Kutty Street",
+    "addressLocality" : "Nungambakkam, Chennai",
+    "addressRegion" : "Tamil Nadu –",
+    "addressCountry" : "India",
+    "postalCode" : "600034"
+  },
+   
+  
+  "openingHoursSpecification" : {
+    "@type" : "OpeningHoursSpecification",
+    "dayOfWeek" : {
+      "@type" : "DayOfWeek",
+      "name" : "Mo,Tu,We,Th,Fr 09:00-17:00"
+    }
+  },
+  "url" : "http://www.statswork.com/",
+  "aggregateRating" : {
+      "@type": "AggregateRating",
+    "ratingValue": "4.4",
+    "reviewCount": "145"
+  }
+}
+{
+ "@context": "http://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement":
+ [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "item":
+   {
+    "@id": "http://www.statswork.com/",
+    "name": "Statswork"
+    }
+  },
+  {
+   "@type": "ListItem",
+  "position": 2,
+  "item":
+   {
+     "@id": "http://www.statswork.com/about-us/",
+     "name": "ABOUT US"
+   }
+  }
+  {
+   "@type": "ListItem",
+  "position": 3,
+  "item":
+   {
+     "@id": "http://www.statswork.com/services/",
+     "name": "SERVICES"
+   }
+  }
+  {
+   "@type": "ListItem",
+  "position": 4,
+  "item":
+   {
+     "@id": "http://www.statswork.com/contact-us/",
+     "name": "CONTACT US"
+   }
+  }
+  ]
+  
+}
+{
+ "@type" : "Organization",
+  "name" : "Stats work",
+  "url" : "http://www.statswork.com",
+  "sameAs" : [
+    "https://www.facebook.com/StatsWork/",
+   "https://twitter.com/statswork",
+   "https://www.youtube.com/channel/UCN67i64x_ELTs1MRiDYV1xg",
+   	"https://www.linkedin.com/statswork",
+    "https://plus.google.com/+Statswork-Services",
+  ]},
+ }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {{ range $index, $tag := .Params.tags }}
+      <a class="label label-default" href="{{$.Site.BaseURL}}tags/{{ $tag | urlize }}">{{ $tag }}</a>
+    {{ end }}
+  </div>
+{{end}}
+
+
+
+
+
+
+
+
+
+
+
+<link href="https://www.statistician-online.com/index.xml" rel="alternate" type="application/rss+xml" title="statistician-online">
+<link href="https://www.statistician-online.com/index.xml" rel="feed" type="application/rss+xml" title="statistician-online">
+
+
+data-product-id="statistical-analysis"
+data-price="500"
+data-currency="GBP"
+data-name="data analysis"
+data-url=""
+data-image-url=""
+data-description="Product description">
+
+
+
+
+

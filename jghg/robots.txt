@@ -1,0 +1,4 @@
+Sitemap: https://www.statistician-online.com/sitemap.xml
+User-agent: *
+Disallow: /some-path/
+

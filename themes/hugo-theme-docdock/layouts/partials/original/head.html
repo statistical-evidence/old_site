@@ -1,0 +1,66 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ if .IsHome -}} <title>{{ .Site.Title }}</title>{{- else -}} <title>{{ .Title }} | Statistician Online </title>{{- end }}
+<meta name="referrer" content="origin-when-crossorigin">
+<meta name="google-site-verification" content="shRLIJ3fAYFuDM6RZPHR3PT0-kPH2XmPVedcshVc6Yg" />
+<meta name="p:domain_verify" content="6835ae5ad93aab1538e521c2642334a4"/>
+<meta name="msvalidate.01" content="6CF94B92C7D01E764F5BC3DDEB0B98FF" />
+<meta name="yandex-verification" content="0c5c6634f3024f99" />
+<meta name="description" content="{{if .IsHome}}{{ $.Site.Params.description }}{{else}}{{.Description}}{{end}}" />
+<meta name="title" content="{{ if .IsHome -}}
+  {{ .Site.Title }}
+{{- else -}}
+  {{ .Title }} | Statistician Online
+{{- end }}" />
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320"/>
+{{ partial "site-opengraph.html" . }}
+{{ partial "site-twittercard.html" . }}
+{{ partial "seo_schema" . }}
+{{ with .OutputFormats.Get "rss" -}}
+    {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+{{ end -}}
+<link rel="canonical" href="{{ .Permalink }}"/>
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-at" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-be" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-cy" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-ee" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-fi" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-fr" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-de" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-gr" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-ie" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-it" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-lv" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-lt" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-lu" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-mt" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-nl" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-pt" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-sk" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-si" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-es" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-au" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-bh" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-ca" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-kw" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-ch" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-sg" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en-nz" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="en" />
+<link rel="alternate" href="{{ .Permalink }}" hreflang="x-default" />
+<link rel="shortcut icon" href="{{"images/favicon.ico" | relURL}}" type="image/x-icon" />
+<link href="{{"css/main.css" | relURL}}" rel="stylesheet">
+<link href="{{"css/fa.css" | relURL}}" rel="stylesheet">
+<link rel="dns-prefetch" href="https://www.google-analytics.com">
+<link rel="dns-prefetch" href="https://code.jquery.com">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link href="https://cdnjs.cloudflare.com" rel="preconnect" crossorigin>
+<link href="https://code.jquery.com" rel="preconnect" crossorigin>
+<style>
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+
+
+

@@ -1,0 +1,18 @@
+{{ if .Site.Params.socialShareTwitter | default true}}
+<li> <a href="//twitter.com/share?url={{ .Permalink }}&amp;text={{ .Title }}&amp;via=Stat_online" target="_blank" class="share-btn twitter" title="Share on Twitter" rel="noopener"><i class="fab fa-twitter-square"></i>
+ <p>Twitter</p></a></li>
+{{ end }}
+{{ if .Site.Params.socialShareFacebook | default true}}
+<li> <a href="//www.facebook.com/sharer/sharer.php?u={{ .Permalink }}" target="_blank" class="share-btn facebook" title="Share on Facebook"rel="noopener">
+<i class="fab fa-facebook-square"></i> <p>Facebook</p></a></li>{{ end }}
+{{ if .Site.Params.socialShareReddit | default true}}
+<li> <a href="//reddit.com/submit?url={{ .Permalink }}&amp;title={{ .Title }}" target="_blank" class="share-btn reddit" title="Share on reddit" rel="noopener"> <i class="fab fa-reddit-square"></i> <p>Reddit</p> </a>
+</li>{{ end }}
+{{ if .Site.Params.socialShareLinkedin | default true}}
+<li> <a href="//www.linkedin.com/shareArticle?url={{ .Permalink }}&amp;title={{ .Title }}" target="_blank" class="share-btn linkedin" title="Share on Linkedin" rel="noopener"> <i class="fab fa-linkedin"></i><p>LinkedIn</p>
+ </a></li> {{ end }}
+{{ if .Site.Params.socialSharePinterest | default true}}
+<li> <a href="//www.pinterest.com/pin/create/button/?url={{ .Permalink }}&amp;description={{ .Title }}" target="_blank" class="share-btn pinterest" title="Share on pinterest" rel="noopener"> <i class="fab fa-pinterest-square"></i>
+<p>Pinterest</p> </a> </li>{{ end }}
+{{ if .Site.Params.socialShareEmail | default true}}
+<li> <a href="mailto:?subject=Check out this post by {{ .Params.author }}&amp;body={{ .Permalink }}" target="_top" class="share-btn email" title="Email this page"> <i class="fas fa-envelope"></i> <p>Email</p> </a> </li>{{ end }}

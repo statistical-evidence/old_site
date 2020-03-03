@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Hire a Statistician Online | RSS UK Accredited Freelance Statistician</title>
+    <link>https://www.statistician-online.com/categories/</link>
+    <description>Recent content in Categories on Hire a Statistician Online | RSS UK Accredited Freelance Statistician</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sat, 09 Feb 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.statistician-online.com/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bootstrap</title>
+      <link>https://www.statistician-online.com/categories/bootstrap/</link>
+      <pubDate>Sat, 09 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.statistician-online.com/categories/bootstrap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data Management</title>
+      <link>https://www.statistician-online.com/categories/data-management/</link>
+      <pubDate>Sat, 02 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.statistician-online.com/categories/data-management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Glm</title>
+      <link>https://www.statistician-online.com/categories/glm/</link>
+      <pubDate>Thu, 31 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.statistician-online.com/categories/glm/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

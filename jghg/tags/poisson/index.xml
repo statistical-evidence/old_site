@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Poisson on Hire Accredited Statistician Online | Freelance Statistical Consulting</title>
+    <link>https://www.statistician-online.com/tags/poisson/</link>
+    <description>Recent content in Poisson on Hire Accredited Statistician Online | Freelance Statistical Consulting</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Thu, 31 Jan 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://www.statistician-online.com/tags/poisson/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Poisson regression : Statistical models for counts and rates</title>
+      <link>https://www.statistician-online.com/statistical-models/discrete-response/count/poisson-regression-overdispersion-how-to/</link>
+      <pubDate>Thu, 31 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://www.statistician-online.com/statistical-models/discrete-response/count/poisson-regression-overdispersion-how-to/</guid>
+      <description>What is a count ?Count is a number which is discrete and non-negative. Discrete means a number which is a countable and distinct. For example, number of road accidents. Road accidents can be 2 or 852 but can not be 2.1 or 85.5. So its discrete i.e integer. This is different to numeric continuous variable (such as blood pressure 120.2,135.9) which modelled differently.
+Count may also have contextual information i.</description>
+    </item>
+    
+  </channel>
+</rss>

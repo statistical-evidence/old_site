@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Bootstrapping: Parametric and Non-parametric bootstrap using loops and boot function in R – Hire Accredited Statistician Online | Ask for Statistics Help</title>
+
+    
+      
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="content-language" content="en-gb">
+<meta name="referrer" content="origin-when-crossorigin">
+<meta name="msvalidate.01" content="6CF94B92C7D01E764F5BC3DDEB0B98FF" />
+<meta name="yandex-verification" content="121c50dfaec756b0" />
+<meta content="parametric, non-parametric, boot, loop, bootstrap standard error, bootstrap 95% confidence interval, resampling, monte Carlo, gpplot2, histogram, binwidth" name="keywords">
+<meta name="revised" content="2019-02-17T18:12:47 GMT">
+<meta name="description" content="This article describes the bootstrap method using loops and boot function. Bootstrap is a resampling method which used the Monte Carlo technique to estimate standard error, confidence interval, bias. The methods include parametric and non-parametric bootstrap" />
+<meta name="title" content=" Bootstrapping: Parametric and Non-parametric bootstrap using loops and boot function in R – Hire Accredited Statistician Online | Ask for Statistics Help" />
+
+
+
+<meta property="og:title" content=" Bootstrapping: Parametric and Non-parametric bootstrap using loops and boot function in R – Hire Accredited Statistician Online | Ask for Statistics Help"/>
+
+<meta property="og:description" content="This article describes the bootstrap method using loops and boot function. Bootstrap is a resampling method which used the Monte Carlo technique to estimate standard error, confidence interval, bias. The methods include parametric and non-parametric bootstrap" />
+
+<meta property="og:type" content="article" />
+
+<meta property="og:url" content="/3-basic-statistics/bootstrapping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r/" />
+
+<meta property="og:image" content="/images/cover.png" />
+
+
+<meta property="og:image:secure_url" content="/images/cover.png" />
+
+<meta property="fb:app_id" content="2107085849337279" />
+<meta name="twitter:title" content=" Bootstrapping: Parametric and Non-parametric bootstrap using loops and boot function in R"/>
+
+<meta name="twitter:description" content="This article describes the bootstrap method using loops and boot function. Bootstrap is a resampling method which used the Monte Carlo technique to estimate standard error, confidence interval, bias. The methods include parametric and non-parametric bootstrap"/>
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:image" content="/images/logo.png" />
+<meta name="twitter:site" content="@Stat_online"/>
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "headline": " Bootstrapping: Parametric and Non-parametric bootstrap using loops and boot function in R",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/3-basic-statistics/bootstrapping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r/"
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "/images/cover.png",
+    "width": 800,
+    "height": 600
+  },
+  "genre": "3-Basic-Statistics",
+  "keywords": "parametric, Non-parametric, boot",
+  "wordcount": 1530,
+  "url": "/3-basic-statistics/bootstrapping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r/",
+  "datePublished": "2019-02-09T00:00:00+00:00",
+  "dateModified": "2019-02-16T22:41:51+00:00",
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Chetan Prajapati",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/images/logo.png",
+      "width": 127,
+      "height": 40
+    }
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Chetan Prajapati"
+  },
+  "description": "This article describes the bootstrap method using loops and boot function. Bootstrap is a resampling method which used the Monte Carlo technique to estimate standard error, confidence interval, bias. The methods include parametric and non-parametric bootstrap"
+}
+</script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-134274550-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+
+
+<link rel="canonical" href="/3-basic-statistics/bootstrapping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r/"/>
+<link rel="alternate" href="/3-basic-statistics/bootstrapping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r/" hreflang="x-default" />
+<link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon" />
+<link href="/css/nucleus.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href="/theme-original/style.css" rel="stylesheet">
+<link href="/css/hybrid.css" rel="stylesheet">
+<link href="/css/featherlight.min.css" rel="stylesheet">
+<link href="/css/auto-complete.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+
+
+<style type="text/css">
+  :root #header + #content > #left > #rlblock_left {
+    display:none !important;
+  }
+</style>
+
+
+
+
+
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+
+
+
+
+
+
+    
+  </head>
+  <body data-url="/3-basic-statistics/bootstrapping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r/">
+    
+      <div id="headermain"></div>
+<nav id="sidebar" class="showVisitedLinks">
+
+
+
+<div class="highlightable">
+  <div id="header-wrapper">
+    <div id="header">
+      
+	
+  
+    <p><img src="/images/logo.png" alt="Hire Accredited Statistician Online | Ask for Statistics Help" /></p>
+
+  
+
+
+    </div>
+        <div class="searchbox">
+		    <label for="search-by"><i class="fa fa-search"></i></label>
+		    <input data-search-input id="search-by" type="text" placeholder="Search...">
+		    <span data-search-clear=""><i class="fa fa-close"></i></span>
+		</div>
+		<script type="text/javascript" src="/js/lunr.min.js"></script>
+		<script type="text/javascript" src="/js/auto-complete.js"></script>
+		<script type="text/javascript">
+        
+            var baseurl = "\/";
+        
+		</script>
+		<script type="text/javascript" src="/js/search.js"></script>
+  </div>
+
+      <ul class="topics">
+            <li data-nav-id="/" class="dd-item">
+            <a href="/"><i class="fa fa-fw fa-home"></i></a>
+            </li>
+    <li data-nav-id="/1-data-management/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/1-data-management/"><b>1. </b>Data Management</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/1-data-management/reshaping-data-into-wide-or-long-format-in-r/" class="dd-item">
+        <div>
+          <a href="/1-data-management/reshaping-data-into-wide-or-long-format-in-r/">
+            Reshaping
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/2-data-visualisation/" class="dd-item
+        ">
+      <div>
+      <a href="/2-data-visualisation/"><b>2. </b>Data Visualisation</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+    <li data-nav-id="/3-basic-statistics/" class="dd-item parent alwaysopen haschildren
+        ">
+      <div>
+      <a href="/3-basic-statistics/"><b>3. </b>Basic Statistics</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/3-basic-statistics/bootstrapping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r/" class="dd-item active">
+        <div>
+          <a href="/3-basic-statistics/bootstrapping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r/">
+            Bootstrap re-sampling
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/4-statistical-modelling/" class="dd-item alwaysopen haschildren
+        ">
+      <div>
+      <a href="/4-statistical-modelling/"><b>4. </b>Statistical Models</a>
+            <i class="fa fa-angle-down fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+    <li data-nav-id="/4-statistical-modelling/4-1-discrete-response/" class="dd-item haschildren
+        ">
+      <div>
+      <a href="/4-statistical-modelling/4-1-discrete-response/"><b>4.1 </b>Discrete response</a><i class="fa fa-angle-right fa-lg category-icon"></i><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+        <ul>
+      <li data-nav-id="/4-statistical-modelling/4-1-discrete-response/4-1-3-count-response/count-data-models/" class="dd-item">
+        <div>
+          <a href="/4-statistical-modelling/4-1-discrete-response/4-1-3-count-response/count-data-models/">
+            Count
+          </a><i class="fa fa-circle-thin read-icon"></i>
+        </div>
+    </li>
+        </ul>
+    </li>
+    <li data-nav-id="/4-statistical-modelling/4-2-continuous-response/" class="dd-item
+        ">
+      <div>
+      <a href="/4-statistical-modelling/4-2-continuous-response/"><b>4.2 </b>Continuous response</a><i class="fa fa-circle-thin read-icon"></i>
+      </div>
+    </li>
+        </ul>
+    </li>
+
+
+
+        <section id="shortcuts">
+                <li class="" role="">Let's connect on><a href="https://twitter.com/Stat_online" target="_blank" rel="noopener"><i class='fa fa-twitter'>&nbsp;&nbsp;</i>Twitter</a></li>
+                <li class="" role=""><a href="https://www.facebook.com/Statistician-Online-2287783558211416" target="_blank" rel="noopener"><i class='fa fa-facebook'>&nbsp;&nbsp;</i> Facebook</a></li>
+                <li class="" role=""><a href="https://www.linkedin.com/in/statistical-evidence/" target="_blank" rel="noopener"><i class='fa fa-linkedin'>&nbsp;&nbsp;</i> Linkedin</a></li>
+        </section>
+            <a id="clear-history" class="" href="#" data-clear-history-toggle=""><i class="fa  fa-history"></i> Clear History</a>
+
+    <hr />
+    <li></li>
+    
+    </ul>
+
+ <section id="footer">
+    </section>
+  </div>
+</nav>
+
+
+
+<section id="body">
+<div id="overlay"></div>
+<div class="padding highlightable">
+
+  <div id="top-bar">
+    <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <span id="sidebar-toggle-span">
+          <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+            <i class="fa fa-bars"></i>
+          </a>
+        </span>
+        <span id="toc-menu"><i class="fa fa-list-alt"></i></span>
+        <span class="links">
+        
+
+
+
+
+
+
+
+ <a href='/'>Home</a> > <a href='/3-basic-statistics/'>Basic Statistics</a> >  Bootstrapping: Parametric and Non-parametric bootstrap using loops and boot function in R
+
+ 
+
+ 
+
+   
+        </span>
+    </div>
+    
+    
+    <div class="progress">
+        <div class="wrapper">
+    
+        </div>
+    </div>
+    
+
+  </div>
+
+
+  <div id="tags">
+    
+      <a class="label label-default" href="/tags/parametric">parametric</a>
+    
+      <a class="label label-default" href="/tags/non-parametric">Non-parametric</a>
+    
+      <a class="label label-default" href="/tags/boot">boot</a>
+    
+  </div>
+
+<div id="body-inner">
+  
+    <h1> Bootstrapping: Parametric and Non-parametric bootstrap using loops and boot function in R</h1>
+  
+
+
+    
+    
+    
+    
+
+
+<p>We first need to understand following some fundamental concepts. The idea behind bootstrapping is very closely aligned with those concepts.</p>
+<p>Here I have created a hypothetical study in which we are interested in finding out the average birth weight of the babies born in the UK at 37 weeks of gestation.</p>
+<ul>
+<li><p><strong>Experiment </strong>: To find out the average weight of babies born at 37 weeks in the UK</p></li>
+<li><p><strong>Random sample </strong>: Random sample means each and every single individual or object has an equal probability of being chosen from the population. For example, in our study, the population is all birth happened in the UK at 37 weeks of gestation. For typical “random sample”, we will need to make sure that each and every birth happening in any corner of the UK, will be participating in our study, from which will choose some of them randomly i.e random sample.</p></li>
+<li><p><strong>Sample data</strong>: the recorded observation or quantity from the sample of the population. Now we have gone to one local hospital and got data of the birth-weights from 20 babies. Here is the (hypothetical) sample data.</p></li>
+</ul>
+<pre><code>##  [1] 3331.608 3549.913 2809.252 2671.465 3383.177 3945.721 3672.601
+##  [8] 3922.416 4647.278 4088.246 3718.874 3724.443 3925.457 3112.920
+## [15] 3495.621 3651.779 3240.194 3867.347 3431.015 4163.725</code></pre>
+<ul>
+<li><strong>Sample statistic </strong>: is the quantity of interest from sample data. The quantity of interest in our study is a mean (average). So mean is our sample statistic. So sample statistic in our sample data is <strong>3618</strong>,</li>
+</ul>
+<pre><code>## [1] 3617.653</code></pre>
+<ul>
+<li><strong>Sampling distribution (of statistic) </strong>: Now we went to take a random sample of 20 babies at numerous hospitals (i.e.multiple times) in the UK. Each time, we calculate the mean birth weight and note down its value. This value will be different in each different hospital (in a statistical sense, the statistic is a random variable, will vary as variation is inherent). Here we went to 100 hospitals and took a sample of 20 babies born at that hospital and calculated the mean birth weight and plotted in the histogram.</li>
+</ul>
+<pre class="r"><code>require(ggplot2)
+ggplot(data.frame(statistic), aes(statistic)) + geom_histogram() + labs(x= &quot;Mean&quot;, y= &quot;Freqency&quot;, title = &quot;Distribution of sample means&quot;)</code></pre>
+<p><img src="/3-Basic-Statistics/2019-02-09-ootstraping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r_files/figure-html/unnamed-chunk-4-1.png" width="336" /></p>
+<p>It is better to plot the histogram with optimum bin width (see <a href="https://link.springer.com/article/10.1007/BF01025868">Article from David Freedman</a>) along with density curve using <code>aes(y=..density..)</code>.So that the area under the density curve will be 1.</p>
+<pre class="r"><code>binw &lt;- 2*(IQR(statistic)/length(statistic)^(1/3))
+ggplot(data.frame(statistic), aes(statistic)) + geom_histogram(aes(y=..density..),binwidth = binw,fill=&quot;darkred&quot;,colour=&quot;black&quot;,size=1) + geom_density(aes(y=..density..),size=1) + labs(x= &quot;Mean&quot;, y= &quot;Density&quot;, title = &quot;Distribution of sample means&quot;)</code></pre>
+<p><img src="/3-Basic-Statistics/2019-02-09-ootstraping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r_files/figure-html/unnamed-chunk-5-1.png" width="336" /></p>
+<ul>
+<li><p><strong>Population parameter </strong>: What will be the mean birth-weight of babies born in the UK if we had gone on collecting birthright of each and every single baby born in the UK. This will be only one value that what we are basically interested in. This is called the population parameter. The problem is that we want to estimate that from our limited number of observations (i.e sample data). The sample statistic will help to estimate the population parameter. The sample statistic will also be called point estimator.</p></li>
+<li><p><strong>Standard error(of statistic)</strong> is the standard deviation (SD) of statistic from its sampling distribution. Note that SD is a statistic that measures the variability in data relative to its mean.</p></li>
+<li><p><strong>Confidence interval </strong>: Though we are interested in population parameter i.e single value, what if our sample data may not contain it. We need to provide some measure of it. This can be achieved by building a confidence interval. We can say that the true value of the population lies in some interval with some degree of confidence.</p></li>
+</ul>
+<p>So, in essence, we want to estimate a population parameter from the sampling distribution of the sample statistic. This sampling distribution can be generated by infinite time random sampling.</p>
+<p>The bootstrap method is one type of re-sampling method, in which sample data (20 birth weights) considered as “population”.From this sample data, we re-sample it with a replacement-large number of time (the 1000’s). The resultant sampling distribution often (not always) approximate the (true) sampling distribution of the statistic.</p>
+<p>Please note, that this sampling will be done with the replacement. So some single observation may be included many times ( or some may be left out completely). So sample statistic will be varied from each random sample of size n.</p>
+<p>From this bootstrapped sampling distribution, which can estimate parameter value, standard errors (standard deviation of sample statistic) and then, calculate the confidence interval.</p>
+<p><img alt="bootstapping parametric non-parametric bootstrap loop boot" src="/images/bootstrap.png" height="500px" width="1100px" /></p>
+<p>Let,</p>
+<ul>
+<li><p><strong><span class="math inline">\(\theta\)</span></strong> is population parameter of interest which belongs to unknown population distribution <strong>F</strong></p></li>
+<li><p><strong><span class="math inline">\(\hat{\theta}\)</span></strong> is statistic that estimate the <span class="math inline">\(\theta\)</span> and we are interests in sampling distribution of <strong><span class="math inline">\(\hat{\theta}\)</span></strong> from fitted distribution function <strong><span class="math inline">\(\hat{F}\)</span></strong></p></li>
+<li><p><span class="math inline">\(\hat{\theta_0^*}\)</span>,<span class="math inline">\(\hat{\theta_1^*}\)</span>,<span class="math inline">\(\hat{\theta_2^*}\)</span>… bootstrap estimate (statistic) to obtain sampling distribution of <strong><span class="math inline">\(\hat{\theta^*}\)</span></strong> is <strong><span class="math inline">\(\hat{F^*}\)</span></strong>. This sampling distribution is good approximation of <strong><span class="math inline">\(\hat{F}\)</span></strong></p></li>
+</ul>
+<div id="non-parametric-bootstrap" class="section level4">
+<h4><strong>Non-Parametric bootstrap</strong></h4>
+<p>We observed the sample data and we are unable to determine from which probability distribution function may have generated this sample data. In this situation, we use empirical distribution function (which is based on observed sample data) to simulate bootstrap samples (using Monte Carlo techniques).</p>
+<pre class="r"><code># loop
+theta_star &lt;- vector()
+for (i in 1:1000){
+  theta_star[i] &lt;- mean(sample(df,size=length(df),replace = T))
+  # First take sample with replacement from obseerved data of same size &amp; then, calculte sample statistic in each, repeat this 1000 times
+}</code></pre>
+<pre class="r"><code>theta_boot &lt;- mean(theta_star) # bootstrap estimate of theta_hat
+theta_boot</code></pre>
+<pre><code>## [1] 3617.616</code></pre>
+<pre class="r"><code>boot_se &lt;- sd(theta_star) # standard eorrs of the estimate
+boot_se</code></pre>
+<pre><code>## [1] 103.2313</code></pre>
+<pre class="r"><code>bias &lt;- theta_boot - mean(df)
+bias</code></pre>
+<pre><code>## [1] -0.03669454</code></pre>
+<pre class="r"><code>MSE &lt;- mean((theta_boot- mean(df))^2)
+MSE</code></pre>
+<pre><code>## [1] 0.001346489</code></pre>
+<pre class="r"><code>CI &lt;-c(theta_boot-1.96*boot_se,theta_boot +1.96*boot_se)
+CI</code></pre>
+<pre><code>## [1] 3415.283 3819.949</code></pre>
+<p>We can use a <code>boot</code> function from the <code>boot</code> package in R.It requires a function to calculate sample statistic ( in its <code>statistic</code> argument). The function must include observed data as the first argument and indices ( or weight) in the second argument.</p>
+<pre class="r"><code>require(boot)
+theta_star_function &lt;- function(x,i) mean(x[i])
+#
+B &lt;- boot(data = df, statistic = theta_star_function, R=1000, stype = &quot;i&quot; )
+B</code></pre>
+<pre><code>## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = df, statistic = theta_star_function, R = 1000, stype = &quot;i&quot;)
+## 
+## 
+## Bootstrap Statistics :
+##     original    bias    std. error
+## t1* 3617.653 0.2896068    101.2961</code></pre>
+<p>We can used default plots to see whether bootstrap samples are correctly sampled.</p>
+<pre class="r"><code>plot(B)</code></pre>
+<p><img src="/3-Basic-Statistics/2019-02-09-ootstraping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r_files/figure-html/unnamed-chunk-14-1.png" width="576" /></p>
+<p>Or, one can use <code>ggplot</code> to get the same figure</p>
+<pre class="r"><code>binw &lt;- 2*(IQR(B$t)/length(B$t)^(1/3))
+ggplot(data.frame(B$t), aes(B.t)) + geom_histogram(fill=&quot;grey&quot;, colour=&quot;black&quot;, binwidth = binw) + geom_vline(xintercept = B$t0, linetype=&quot;dashed&quot;, size=1) + labs(x=&quot;Bootstrap sample statistic&quot;, title=&quot;Bootstrap sampling distribution of sample mean&quot;)</code></pre>
+<p><img src="/3-Basic-Statistics/2019-02-09-ootstraping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r_files/figure-html/unnamed-chunk-15-1.png" width="336" /></p>
+<p>We can get confidence interval by,</p>
+<pre class="r"><code>boot.ci(B)</code></pre>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = B)
+## 
+## Intervals : 
+## Level      Normal              Basic         
+## 95%   (3419, 3816 )   (3414, 3817 )  
+## 
+## Level     Percentile            BCa          
+## 95%   (3418, 3821 )   (3414, 3816 )  
+## Calculations and Intervals on Original Scale</code></pre>
+</div>
+<div id="parametric-bootstrap" class="section level4">
+<h4><strong>Parametric Bootstrap</strong></h4>
+<p>Once we have a sample data, we may think that the observed data may have come from some known probability distribution function ( i.e normal, gamma or poisson or any).</p>
+<p>For example in our sample birth weights, we may assume that observed birth-weight comes from normal distribution with parameter <span class="math inline">\(\mu\)</span> = 3617.7 and <span class="math inline">\(\sigma\)</span> = 464.6 ( which is estimated from observed data). See the below figure,</p>
+<pre class="r"><code>ggplot(data.frame(df), aes(df)) + geom_density() + labs(x= &quot;birth weight&quot;, title = &quot;Distribution of observed sample birthweights&quot;)</code></pre>
+<p><img src="/3-Basic-Statistics/2019-02-09-ootstraping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r_files/figure-html/unnamed-chunk-17-1.png" width="336" /></p>
+<p>So, instead of using observed data ( as a non-parametric bootstrap), we can use normal distribution function with probable parameter estimates ( which most likely the maximum likelihood estimates) for bootstrap re-sampling.</p>
+<p>Let, first do it with help of <code>for</code> loops in R.</p>
+<pre class="r"><code>theta_star &lt;- vector()
+for (i in 1:1000){
+  theta_star[i] &lt;- mean(rnorm(length(df),mean = 3617.7 ,sd = 464.6))
+}</code></pre>
+<pre class="r"><code>theta_boot &lt;- mean(theta_star) # bootstrap estimate of theta_hat
+theta_boot</code></pre>
+<pre><code>## [1] 3624.285</code></pre>
+<pre class="r"><code>boot_se &lt;- sd(theta_star) # standard eorrs of the estimate
+boot_se</code></pre>
+<pre><code>## [1] 109.4116</code></pre>
+<pre class="r"><code>bias &lt;- theta_boot - mean(df)
+bias</code></pre>
+<pre><code>## [1] 6.63217</code></pre>
+<pre class="r"><code>MSE &lt;- mean((theta_boot- mean(df))^2)
+MSE</code></pre>
+<pre><code>## [1] 43.98568</code></pre>
+<pre class="r"><code>CI &lt;-c(theta_boot-1.96*boot_se,theta_boot +1.96*boot_se)
+CI</code></pre>
+<pre><code>## [1] 3409.838 3838.731</code></pre>
+<p>Now, using <code>boot</code> function,</p>
+<p>For parametric bootstrap, one has to specify a function in <code>ran.gen</code> arguments, which tell the boots how random sample will be generated ( I mean, from which distribution, parameters you want to generate re-sample). The first argument will be the observed data and the second argument will be parameter estimates.This function should give random samples according to your assumed distribution function.</p>
+<pre class="r"><code>gen_function &lt;- function(x,mle) {
+  data &lt;- rnorm(length(x),mle[1],mle[2])
+  return(data)}</code></pre>
+<pre class="r"><code># function to calculate sample statistic 
+theta_star_function &lt;- function(x,i) mean(x[i])</code></pre>
+<p>The <code>mle</code> values ( of parameter estimates ) passed to random generator function.</p>
+<pre class="r"><code>B &lt;- boot(data = df, sim = &quot;parametric&quot;, ran.gen =  gen_function, mle = c(3617.7,464.6), statistic = theta_star_function, R=1000)
+B</code></pre>
+<pre><code>## 
+## PARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = df, statistic = theta_star_function, R = 1000, sim = &quot;parametric&quot;, 
+##     ran.gen = gen_function, mle = c(3617.7, 464.6))
+## 
+## 
+## Bootstrap Statistics :
+##     original    bias    std. error
+## t1* 3617.653 -3.941167    103.6962</code></pre>
+<pre class="r"><code>plot(B)</code></pre>
+<p><img src="/3-Basic-Statistics/2019-02-09-ootstraping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r_files/figure-html/unnamed-chunk-27-1.png" width="576" /></p>
+<pre class="r"><code>boot.ci(B,type = &quot;perc&quot;)</code></pre>
+<pre><code>## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = B, type = &quot;perc&quot;)
+## 
+## Intervals : 
+## Level     Percentile     
+## 95%   (3418, 3824 )  
+## Calculations and Intervals on Original Scale</code></pre>
+</div>
+
+
+    
+    
+          
+<section class="comments">
+  <div id="disqus_thread"></div>
+  <script>
+  var disqus_config = function () {
+  
+  };
+  (function() {
+    var inIFrame = function() {
+      var iframe = true;
+      try { iframe = window.self !== window.top; } catch (e) {}
+      return iframe;
+    };
+    if (inIFrame()) return;
+    var disqus_js = '//https-chetan-prajapati-netlify-com.disqus.com/embed.js';
+    var d = document, s = d.createElement('script');
+    s.src = disqus_js; s.async = true;
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  </div>
+</div>
+
+<div id="navigation">
+<a class="nav nav-prev" href="/3-basic-statistics/" title="Basic Statistics"> <i class="fa fa-chevron-left"></i><label>Basic Statistics</label></a>
+    <a class="nav nav-next" href="/4-statistical-modelling/" title="Statistical Models" style="margin-right: 0px;"><label>Statistical Models</label><i class="fa fa-chevron-right"></i></a></div>
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<script src="/js/featherlight.min.js"></script>
+<script src="/js/html5shiv-printshiv.min.js"></script>
+
+<script src="/js/modernizr.custom.71422.js"></script>
+<script src="/js/docdock.js"></script>
+<script src="/theme-original/script.js"></script>
+
+
+    
+
+    
+    
+    
+
+    <script src="//yihui.name/js/math-code.js"></script>
+<script async
+src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
+<script type="text/javascript">Calendly.initBadgeWidget({url: 'https://calendly.com/chetan-prajapati', text: "Book an appointment", color: "#191919", branding: false});</script>
+
+
+
+  </body>
+</html>

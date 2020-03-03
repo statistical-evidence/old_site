@@ -1,0 +1,50 @@
+{{ if .IsHome -}}
+
+
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Statistician Online | {{ .Site.Title }}"/>
+
+<meta property="og:description" content="{{ with .Site.Params.description }}{{ . }}{{ end }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:site_name" content="Statistician Online" />
+
+
+{{- else if .IsPage -}}
+
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{ .Title }} | Statistician Online"/>
+<meta property="og:description" content="{{ .Description }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+<meta property="og:site_name" content="Statistician Online" />
+<meta property="article:publisher" content="https://www.facebook.com/statisticianonline" />
+<meta property="article:author" content="https://www.facebook.com/MadhavMedStats">
+
+{{- if not .PublishDate.IsZero }}<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05-07:00" | safeHTMLAttr }}"/>
+{{ else if not .Date.IsZero }}<meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTMLAttr }}"/>
+{{ end }}
+{{- if not .Lastmod.IsZero }}<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" | safeHTMLAttr }}"/>{{ end }}
+{{- else }}
+{{- if not .Date.IsZero }}
+<meta property="og:updated_time" content="{{ .Date.Format "2006-01-02T15:04:05-07:00" | safeHTMLAttr }}"/>
+{{- end }}
+{{- end }}
+
+{{- with .Params.tags }}{{ range first 6 . }}
+<meta property="article:tag" content="{{ . }}" />
+{{ end }}{{ end }}
+
+
+<meta property="og:image" content="{{ with .Param "pageimage.image" }}{{ .url | absURL }}{{ else }}{{ with .Site.Params.image }}{{ .url | absURL }}{{ end }}{{ end }}" />
+
+<meta property="og:image:secure_url" content="{{ with .Param "pageimage.image" }}{{ .url | absURL }}{{ else }}{{ with .Site.Params.image }}{{ .url | absURL }}{{ end }}{{ end }}" />
+
+<meta property="og:image:width" content="{{ with .Param "pageimage.image.width" }}{{ . }}{{ else }}{{ with .Site.Params.image.width }}{{ .}}{{ end }}{{ end }}"/>
+<meta property="og:image:height" content= "{{ with .Param "pageimage.image.height" }}{{ . }}{{ else }}{{ with .Site.Params.image.height }}{{ .}}{{ end }}{{ end }}"/>
+<meta property="og:image:alt" content= "{{ with .Param "pageimage.image.text" }}{{ . }}{{ else }}{{ with .Site.Params.image.text }}{{ .}}{{ end }}{{ end }}"/>
+
+
+
+
+{{ with .Site.Params.facebook.appid }}<meta property="fb:app_id" content="{{ . }}" />{{ end }}

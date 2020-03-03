@@ -1,0 +1,29 @@
+---
+title: Count response
+author: Chetan Prajapati
+date: '2019-01-31'
+slug: count-response
+keywords : 
+  - poisson
+categories:
+  - GLM
+tags:
+  - r
+  - poisson
+  - GLM
+description: 'Count models in R'
+alwaysopen : true
+
+pageimage:
+  image:
+    url: "/img/hugo/markup.jpg"
+    width: 800
+    height: 600
+
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+

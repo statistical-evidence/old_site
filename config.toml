@@ -1,0 +1,95 @@
+baseURL = "https://www.statistician-online.com/"
+languageCode = "en-gb"
+DefaultContentLanguage = "en"
+title = "Hire Accredited Statistician Online | Freelance Statistical Consulting"
+theme = "hugo-theme-docdock"
+pygmentsCodeFences = false
+pygmentsStyle = ""
+defaultContentLanguageInSubdir= true
+enableMissingTranslationPlaceholders = false
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+disqusShortname = "https-chetan-prajapati-netlify-com"
+canonifyURLs = false
+enableRobotsTXT = true
+enableGitInfo = true
+googleAnalytics= "UA-135116594-1"
+disableHugoGeneratorInject = true
+[author]
+name = "Chetan Prajapati-Statistician"
+
+[params]
+#editURL = "https://github.com/vjeantet/hugo-theme-docdock/edit/master/exampleSite/content/"
+author = "Chetan Prajapati"
+description = "Experienced and professional statistician offers reliable statistical consulting services online to researchers, businesses and PhD students. Hire RSS(UK) accredited freelance statistician for in-depth data analysis and statistical modelling in R, SPSS, STATA. Ask for statistics help in dissertation, medical statistics"
+images = ["images/bio.png"]
+showVisitedLinks = true # default is false
+themeStyle = "original" # "original" or "flex" # default "flex"
+themeVariant = "" # choose theme variant "green", "gold" , "gray", "blue" (default)
+ordersectionsby = "weight" # ordersectionsby = "title"
+disableHomeIcon = false # default is false
+disableSearch = false # default is false
+disableNavChevron = false # set true to hide next/prev chevron, default is false
+highlightClientSide = true # set true to use highlight.pack.js instead of the default hugo chroma highlighter
+menushortcutsnewtab = true # set true to open shortcuts links to a new tab/window
+socialShare          = true
+
+
+
+[params.publisher]
+name = "Statistician-Online"
+
+[params.publisher.logo]
+url = "/images/publisherlogo.png"
+width = 300
+height = 60
+
+
+[params.logo]
+url = "/images/logo.png"
+width = 127
+height = 40
+
+
+
+[params.image]
+url = "/images/mainpagecover.png"
+width = 1200
+height = 456
+text = "Freelance statistical consultant"
+
+
+[params.facebook]
+appid = "311121316214214"
+
+[params.twitter]
+username = "Stat_online"
+
+
+[outputs]
+home = [ "HTML", "RSS", "JSON"]
+
+[[menu.shortcuts]]
+name = "<i class='fas fa-comment-medical'></i> Clients feedbacks"
+url = "/reviews"
+weight = 7
+
+[[menu.shortcuts]]
+name = "<i class='fab fa-twitter-square'></i> Twitter"
+url = "https://twitter.com/Stat_online"
+weight = 8
+
+[[menu.shortcuts]]
+name = "<i class='fab fa-facebook-messenger'></i> Facebook"
+url = "https://www.facebook.com/statisticianonline/"
+weight = 9
+
+[[menu.shortcuts]]
+name = "<i class='fab fa-linkedin'></i> Linkedin"
+url = "https://www.linkedin.com/in/statistician-online-308544180/"
+weight = 10
+
+
+
+
+
+

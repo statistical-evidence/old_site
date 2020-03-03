@@ -1,0 +1,7 @@
+Sitemap: {{ "sitemap.xml" | absLangURL }}
+User-agent: *
+Disallow: /some-path/
+
+{{ range where .Data.Pages "Params.robotsdisallow" true }}
+Disallow: {{ .RelPermalink }}
+{{ end }}

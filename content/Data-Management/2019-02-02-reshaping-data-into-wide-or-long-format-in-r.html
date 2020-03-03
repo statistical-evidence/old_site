@@ -1,0 +1,398 @@
+---
+title: "Reshape data from wide to long or from long to wide in R"
+author: "Chetan Prajapati"
+date: "2019-02-02"
+description: R tutorial about reshaping data from wide to long and from long to wide format using base r reshape function. Learn to transform dataframe, matrix or array using example of longitudinal or panel data. Observations recorded in multiple columns but in single row for unique id (wide data) or each new observations are new rows but in single column (long data)
+
+keywords: 
+- reshape
+- wide
+- long
+- r
+
+menuTitle: Reshaping
+pageimage:
+  image:
+    height: 628
+    url: /images/Reshape.png
+    width: 1200
+    text: reshape wide long r melt cast
+slug: reshape-wide-long-data-r-how-to
+tags:
+- reshape
+categories: 
+- data manipulation
+sitemap:
+  ChangeFreq: daily
+  Priority: 0.9
+---
+
+
+
+<p><img alt="reshape data wide long r" src="/images/Reshape.png" /></p>
+<p>Reshaping though frequently required in data analysis, so often it remains confusing even if you are frequent user of <code>reshape</code> function. Here I have provided an simple example to elaborate more on each argument of <code>reshape</code>.</p>
+<div id="reshape-data-from-wide-to-long" class="section level2">
+<h2>Reshape data from wide to long</h2>
+<p>Your data in wide form if the multiple observations of item, place or person (i.e. units) has been recorded in single row (but in multiple column). This multiple observations may be of repeated measure type (observation are made repeatedly at different time point) or multiple characteristics of some unit (eg. height, length and width of square).</p>
+<p>Let’s take an example of wide data of repeated measure type. Person A is visiting clinic every month for their blood pressure check, and nurse note down the value for each month in single row which belong to this specific person A. See example below,</p>
+<pre class="r"><code># wide data
+df &lt;- data.frame(matrix(data = NA, nrow = 3, ncol = 5, dimnames = list(NULL, paste0(c(&quot;id&quot;,&quot;name&quot;,&quot;jan&quot;,&quot;feb&quot;,&quot;march&quot;)))))
+df[1,] &lt;- c(1,&quot;A&quot;,123,120,125)
+df[2,] &lt;- c(2,&quot;B&quot;,140,150,155)
+df[3,] &lt;- c(3,&quot;C&quot;,96,86,97)</code></pre>
+<p>Our “wide” data look like</p>
+<pre class="r"><code>kable(df,format = &quot;pandoc&quot;, caption = &quot;wide data&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-3">Table 1: </span>wide data</caption>
+<thead>
+<tr class="header">
+<th align="left">id</th>
+<th align="left">name</th>
+<th align="left">jan</th>
+<th align="left">feb</th>
+<th align="left">march</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">A</td>
+<td align="left">123</td>
+<td align="left">120</td>
+<td align="left">125</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">B</td>
+<td align="left">140</td>
+<td align="left">150</td>
+<td align="left">155</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">C</td>
+<td align="left">96</td>
+<td align="left">86</td>
+<td align="left">97</td>
+</tr>
+</tbody>
+</table>
+<p>We want a data in which each new observation in new row but within same column i.e. long data. To achieve that we need to use standard <code>reshape</code> command in <code>R</code>. The <code>reshape</code> has following argument:</p>
+<ul>
+<li><p><code>idvar</code> : unique identifier for person,place or object on which observations(measurements) are made at different time points or repeatedly. Example <code>Case ID</code></p></li>
+<li><p><code>varying</code> : if observation for specific individuals are made at different time points, in which columns values are recorded i.e time-varying columns. Example <code>Jan</code>, <code>Feb</code>, <code>March</code></p></li>
+<li><p><code>timevar</code>: what will be the name of column once the time-varying columns above has been staked in rows. Example <code>Month</code></p></li>
+<li><p><code>times</code> : what will be the values (of time) once the time-varying columns above has been staked in rows. Example <code>Jan</code>, <code>Feb</code>, <code>March</code></p></li>
+<li><p><code>v.names</code>: what will be the values (of observations) once the time-varying columns above has been staked in rows. Example <code>BP</code></p></li>
+<li><p><code>direction</code>: data needs to converted from wide to <code>long</code> format.</p></li>
+</ul>
+<pre class="r"><code>df_long &lt;- reshape(df,
+idvar = &quot;id&quot;,  
+        #[unique identifier for person,place or object on which observations(measurments) are made at different time points or repeatedly]
+
+varying = c(&quot;jan&quot;,&quot;feb&quot;,&quot;march&quot;),  
+        # [if observation for specific individulas are made at different time points, in which columns values are recorded i.e time-varying columns ]
+
+timevar = &quot;month&quot;, 
+        # [what will be the name of column once the timevarying columns above has been staked in rows]
+
+times = c(&quot;jan&quot;,&quot;feb&quot;,&quot;march&quot;),
+        # [what will be the values (of time) once the timevarying columns above has been staked in rows]
+
+v.names = &quot;BP&quot;, 
+        # [what will be the values (of observations) once the timevarying columns above has been staked in rows]
+
+direction = &quot;long&quot;)   
+        # [we want to convert wide df into long one])</code></pre>
+<p>Our “long” data look like</p>
+<pre class="r"><code>df_long &lt;- arrange(df_long, id)
+
+kable(df_long,format = &quot;pandoc&quot;, caption = &quot;long data&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-5">Table 2: </span>long data</caption>
+<thead>
+<tr class="header">
+<th align="left">id</th>
+<th align="left">name</th>
+<th align="left">month</th>
+<th align="left">BP</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">A</td>
+<td align="left">jan</td>
+<td align="left">123</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">A</td>
+<td align="left">feb</td>
+<td align="left">120</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">A</td>
+<td align="left">march</td>
+<td align="left">125</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">B</td>
+<td align="left">jan</td>
+<td align="left">140</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">B</td>
+<td align="left">feb</td>
+<td align="left">150</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">B</td>
+<td align="left">march</td>
+<td align="left">155</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">C</td>
+<td align="left">jan</td>
+<td align="left">96</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="left">C</td>
+<td align="left">feb</td>
+<td align="left">86</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">C</td>
+<td align="left">march</td>
+<td align="left">97</td>
+</tr>
+</tbody>
+</table>
+<p>Sometime, not only one type of measurement (BP) but also other types (such as heart rate-HR) are measured and recorded row wise. For example,</p>
+<pre class="r"><code># wide data
+df &lt;- data.frame(matrix(data = NA, nrow = 3, ncol = 8, dimnames = list(NULL, paste0(c(&quot;id&quot;,&quot;name&quot;,&quot;BP_jan&quot;,&quot;BP_feb&quot;,&quot;BP_march&quot;,&quot;HR_jan&quot;,&quot;HR_feb&quot;,&quot;HR_march&quot;)))))
+df[1,] &lt;- c(1,&quot;A&quot;,123,120,125,72,70,71)
+df[2,] &lt;- c(2,&quot;B&quot;,140,150,155,85,82,86)
+df[3,] &lt;- c(3,&quot;C&quot;,96,86,97,65,52,59)</code></pre>
+<pre class="r"><code>kable(df,format = &quot;pandoc&quot;, caption = &quot;wide data- multiple category&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-7">Table 3: </span>wide data- multiple category</caption>
+<thead>
+<tr class="header">
+<th align="left">id</th>
+<th align="left">name</th>
+<th align="left">BP_jan</th>
+<th align="left">BP_feb</th>
+<th align="left">BP_march</th>
+<th align="left">HR_jan</th>
+<th align="left">HR_feb</th>
+<th align="left">HR_march</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">A</td>
+<td align="left">123</td>
+<td align="left">120</td>
+<td align="left">125</td>
+<td align="left">72</td>
+<td align="left">70</td>
+<td align="left">71</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">B</td>
+<td align="left">140</td>
+<td align="left">150</td>
+<td align="left">155</td>
+<td align="left">85</td>
+<td align="left">82</td>
+<td align="left">86</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">C</td>
+<td align="left">96</td>
+<td align="left">86</td>
+<td align="left">97</td>
+<td align="left">65</td>
+<td align="left">52</td>
+<td align="left">59</td>
+</tr>
+</tbody>
+</table>
+<p>This data can be converted into “long” by using <code>list</code> for group of time-varying columns for <code>varying</code></p>
+<pre class="r"><code>df_long &lt;- reshape(df,
+idvar = &quot;id&quot;,  
+varying = list(c(&quot;BP_jan&quot;,&quot;BP_feb&quot;,&quot;BP_march&quot;),c(&quot;HR_jan&quot;,&quot;HR_feb&quot;,&quot;HR_march&quot;) ),  
+timevar = &quot;month&quot;, 
+times = c(&quot;jan&quot;,&quot;feb&quot;,&quot;march&quot;),
+v.names = c(&quot;BP&quot;,&quot;HR&quot;), 
+direction = &quot;long&quot;)   </code></pre>
+<pre class="r"><code>df_long &lt;- arrange(df_long, id)
+kable(df_long,format = &quot;pandoc&quot;, caption = &quot;long data&quot;)</code></pre>
+<table>
+<caption><span id="tab:unnamed-chunk-9">Table 4: </span>long data</caption>
+<thead>
+<tr class="header">
+<th align="left">id</th>
+<th align="left">name</th>
+<th align="left">month</th>
+<th align="left">BP</th>
+<th align="left">HR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">A</td>
+<td align="left">jan</td>
+<td align="left">123</td>
+<td align="left">72</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">A</td>
+<td align="left">feb</td>
+<td align="left">120</td>
+<td align="left">70</td>
+</tr>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left">A</td>
+<td align="left">march</td>
+<td align="left">125</td>
+<td align="left">71</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">B</td>
+<td align="left">jan</td>
+<td align="left">140</td>
+<td align="left">85</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">B</td>
+<td align="left">feb</td>
+<td align="left">150</td>
+<td align="left">82</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">B</td>
+<td align="left">march</td>
+<td align="left">155</td>
+<td align="left">86</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">C</td>
+<td align="left">jan</td>
+<td align="left">96</td>
+<td align="left">65</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="left">C</td>
+<td align="left">feb</td>
+<td align="left">86</td>
+<td align="left">52</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">C</td>
+<td align="left">march</td>
+<td align="left">97</td>
+<td align="left">59</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="reshape-data-from-long-to-wide" class="section level2">
+<h2>Reshape data from long to wide</h2>
+<p>To make data “wide” from long, the <code>reshape</code> function will need only two main arguments</p>
+<ul>
+<li><p><code>idvar</code>: unique identifier of unit on which measurement are made</p></li>
+<li><p><code>timevar</code> : which column represent <strong>the timing</strong> of the observations ( so that <code>reshape</code> function associate it with the value for given time for each ID )</p></li>
+</ul>
+<p>If you do not specify above two arguments, function will drop an error-</p>
+<p><code>Error in [.data.frame (data, , idvar) : undefined columns selected</code></p>
+<p>If you read above error carefully, it already specifying which arguments were missing. Here in above case missing argument was <code>idvar</code>.</p>
+<p>You can optionally provide,</p>
+<ul>
+<li><p><code>v.names</code> : which column represent <strong>values</strong> of the observations in long data (so that <code>reshape</code> function can transform these values into rows for each ID)</p></li>
+<li><p><code>sep</code>: column names in wide format are going to be created using value of <code>timesvar</code> and <code>integers</code>. Specify how both will be seperated in column names.</p></li>
+</ul>
+<p>Here is the example</p>
+<pre class="r"><code>df_wide &lt;- reshape(df_long,
+       idvar = &quot;id&quot;,
+       # unique identifier
+       timevar = &quot;month&quot;,
+       # the column represent the timing of the observations
+       v.names = c(&quot;BP&quot;,&quot;HR&quot;),
+       # the columns represent the value of the observation (BP,HR)
+       direction = &quot;wide&quot;,
+       sep = &quot;_&quot;
+        )</code></pre>
+<p>Here is the wide data</p>
+<table>
+<caption><span id="tab:unnamed-chunk-11">Table 5: </span>wide data</caption>
+<thead>
+<tr class="header">
+<th></th>
+<th align="left">id</th>
+<th align="left">name</th>
+<th align="left">BP_jan</th>
+<th align="left">HR_jan</th>
+<th align="left">BP_feb</th>
+<th align="left">HR_feb</th>
+<th align="left">BP_march</th>
+<th align="left">HR_march</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td align="left">1</td>
+<td align="left">A</td>
+<td align="left">123</td>
+<td align="left">72</td>
+<td align="left">120</td>
+<td align="left">70</td>
+<td align="left">125</td>
+<td align="left">71</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td align="left">2</td>
+<td align="left">B</td>
+<td align="left">140</td>
+<td align="left">85</td>
+<td align="left">150</td>
+<td align="left">82</td>
+<td align="left">155</td>
+<td align="left">86</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td align="left">3</td>
+<td align="left">C</td>
+<td align="left">96</td>
+<td align="left">65</td>
+<td align="left">86</td>
+<td align="left">52</td>
+<td align="left">97</td>
+<td align="left">59</td>
+</tr>
+</tbody>
+</table>
+</div>

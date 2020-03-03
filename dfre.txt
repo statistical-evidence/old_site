@@ -1,0 +1,11 @@
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+[[menu.shortcuts]]
+name = "<i class='fas fa-comment-medical'></i> Clients feedbacks"
+url = "/reviews"
+weight = 7
+
+
+<script type="text/javascript">
+(function e(){var e=document.createElement("script");e.type="text/javascript",e.async=true,e.src="//staticw2.yotpo.com/2htNWav9UZ2zomAxet41ezNcBR6lTEXDAOHh3nEU/widget.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})();
+</script>

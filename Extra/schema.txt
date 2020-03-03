@@ -1,0 +1,218 @@
+ 
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "LocalBusiness",
+  "name" : "Statswork",
+  "image" : "http://www.statswork.com/wp-content/uploads/2017/11/statswork-final-logo-1.png",
+  "description": "Statswork is a pioneer statistical consulting company providing full statistical assistance including academic, educational institutions and non-
+government organizations across the globe. We provide end-to-end solutions for all your analytical needs.",
+  "brand": {
+    "@type": "Thing",
+    "name": "STATS WORK"
+  },
+  "telephone" : "India: +91-8754446690 UK : +44-1223926607 US: +1-9725029262",
+  "email" : "info@statswork.com",
+  "address" : {
+    "@type" : "PostalAddress",
+    "streetAddress" : "#10, Kutty Street",
+    "addressLocality" : "Nungambakkam, Chennai",
+    "addressRegion" : "Tamil Nadu –",
+    "addressCountry" : "India",
+    "postalCode" : "600034"
+  },
+   
+  
+  "openingHoursSpecification" : {
+    "@type" : "OpeningHoursSpecification",
+    "dayOfWeek" : {
+      "@type" : "DayOfWeek",
+      "name" : "Mo,Tu,We,Th,Fr 09:00-17:00"
+    }
+  },
+  "url" : "http://www.statswork.com/",
+  "aggregateRating" : {
+      "@type": "AggregateRating",
+    "ratingValue": "4.4",
+    "reviewCount": "145"
+  }
+}
+{
+ "@context": "http://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement":
+ [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "item":
+   {
+    "@id": "http://www.statswork.com/",
+    "name": "Statswork"
+    }
+  },
+  {
+   "@type": "ListItem",
+  "position": 2,
+  "item":
+   {
+     "@id": "http://www.statswork.com/about-us/",
+     "name": "ABOUT US"
+   }
+  }
+  {
+   "@type": "ListItem",
+  "position": 3,
+  "item":
+   {
+     "@id": "http://www.statswork.com/services/",
+     "name": "SERVICES"
+   }
+  }
+  {
+   "@type": "ListItem",
+  "position": 4,
+  "item":
+   {
+     "@id": "http://www.statswork.com/contact-us/",
+     "name": "CONTACT US"
+   }
+  }
+  ]
+  
+}
+{
+ "@type" : "Organization",
+  "name" : "Stats work",
+  "url" : "http://www.statswork.com",
+  "sameAs" : [
+    "https://www.facebook.com/StatsWork/",
+   "https://twitter.com/statswork",
+   "https://www.youtube.com/channel/UCN67i64x_ELTs1MRiDYV1xg",
+   	"https://www.linkedin.com/statswork",
+    "https://plus.google.com/+Statswork-Services",
+  ]},
+ }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+website
+
+
+
+
+
+
+
+
+
+
+
+Article
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local buisness
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org/",
+  "@type": "Restaurant",
+  "name": "Statistician-Online",
+  "acceptsReservations": "No",
+  "menu": "https://www.statistician-online.com/",
+  "servesCuisine": "",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Great Meadow Road",
+    "addressLocality": "Bristol",
+    "addressRegion": "South Gloucestershire",
+    "postalCode": "BS32 8DB"
+  },
+  "telephone": "+447392339862"
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+id
+address
+address.addressCountry
+Localiyt
+region
+postal code
+street address
+name
+aggregte rating
+department
+geo
+geo.lattitude
+menu
+openiong hours
+potenial action
+review = author, itemReviewed, review rating best revietaing worst
+telphone
+url
+
+
+
+{{ template "_internal/google_analytics.html" . }}
+
+
+
+

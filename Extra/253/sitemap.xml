@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/1-data-management/</loc>
+    <lastmod>2019-11-02T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/1-data-management/"
+                />
+  </url>
+  
+  <url>
+    <loc>/4-statistical-modelling/4-1-discrete-response/</loc>
+    <lastmod>2019-11-02T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/4-statistical-modelling/4-1-discrete-response/"
+                />
+  </url>
+  
+  <url>
+    <loc>/4-statistical-modelling/4-2-continuous-response/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/4-statistical-modelling/4-2-continuous-response/"
+                />
+  </url>
+  
+  <url>
+    <loc>/2-data-visualisation/</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/2-data-visualisation/"
+                />
+  </url>
+  
+  <url>
+    <loc>/3-basic-statistics/</loc>
+    <lastmod>2019-02-09T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/3-basic-statistics/"
+                />
+  </url>
+  
+  <url>
+    <loc>/4-statistical-modelling/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/4-statistical-modelling/"
+                />
+  </url>
+  
+  <url>
+    <loc>/3-basic-statistics/bootstrapping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r/</loc>
+    <lastmod>2019-02-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/3-basic-statistics/bootstrapping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r/"
+                />
+  </url>
+  
+  <url>
+    <loc>/1-data-management/reshaping-data-into-wide-or-long-format-in-r/</loc>
+    <lastmod>2019-11-02T00:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/1-data-management/reshaping-data-into-wide-or-long-format-in-r/"
+                />
+  </url>
+  
+  <url>
+    <loc>/4-statistical-modelling/4-1-discrete-response/4-1-3-count-response/count-data-models/</loc>
+    <lastmod>2019-11-02T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/4-statistical-modelling/4-1-discrete-response/4-1-3-count-response/count-data-models/"
+                />
+  </url>
+  
+  <url>
+    <loc>/_header/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/_header/"
+                />
+  </url>
+  
+  <url>
+    <loc>/tags/boot/</loc>
+    <lastmod>2019-02-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/tags/boot/"
+                />
+  </url>
+  
+  <url>
+    <loc>/categories/bootstrap/</loc>
+    <lastmod>2019-02-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/categories/bootstrap/"
+                />
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2019-02-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>/categories/data-management/</loc>
+    <lastmod>2019-11-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/categories/data-management/"
+                />
+  </url>
+  
+  <url>
+    <loc>/tags/dataframe/</loc>
+    <lastmod>2019-11-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/tags/dataframe/"
+                />
+  </url>
+  
+  <url>
+    <loc>/tags/glm/</loc>
+    <lastmod>2019-11-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/tags/glm/"
+                />
+  </url>
+  
+  <url>
+    <loc>/categories/glm/</loc>
+    <lastmod>2019-11-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/categories/glm/"
+                />
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2019-02-09T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/"
+                />
+  </url>
+  
+  <url>
+    <loc>/tags/negative-binomial/</loc>
+    <lastmod>2019-11-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/tags/negative-binomial/"
+                />
+  </url>
+  
+  <url>
+    <loc>/tags/non-parametric/</loc>
+    <lastmod>2019-02-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/tags/non-parametric/"
+                />
+  </url>
+  
+  <url>
+    <loc>/tags/parametric/</loc>
+    <lastmod>2019-02-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/tags/parametric/"
+                />
+  </url>
+  
+  <url>
+    <loc>/tags/poisson/</loc>
+    <lastmod>2019-11-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/tags/poisson/"
+                />
+  </url>
+  
+  <url>
+    <loc>/tags/quasi-poisson/</loc>
+    <lastmod>2019-11-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/tags/quasi-poisson/"
+                />
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2019-11-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/tags/r/"
+                />
+  </url>
+  
+  <url>
+    <loc>/tags/reshape/</loc>
+    <lastmod>2019-11-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/tags/reshape/"
+                />
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2019-02-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>/tags/zero-inflated/</loc>
+    <lastmod>2019-11-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="x-default"
+                href="/tags/zero-inflated/"
+                />
+  </url>
+  
+</urlset>

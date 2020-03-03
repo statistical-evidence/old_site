@@ -1,0 +1,105 @@
+Organisation:
+logo
+=== The image must be 112x112px, at minimum.
+contactPoint
+telephone
+contactType
+sameAs
+
+Local Buisness
+
+Person
+-sameAs
+
+@id
+address
+address.addressCountry
+address.addressLocality
+address.addressRegion
+address.postalCode
+address.streetAddress
+name
+aggregateRating
+geo
+geo.latitude
+geo.longitude
+openingHoursSpecification
+openingHoursSpecification.closes
+openingHoursSpecification.dayOfWeek
+openingHoursSpecification.opens
+openingHoursSpecification.validFrom
+openingHoursSpecification.validThrough
+review
+telephone
+url
+
+
+======================= review example  ==============================
+"review": {
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "5"
+    },
+    "name": "A masterpiece of literature",
+    "author": {
+      "@type": "Person",
+      "name": "John Doe"
+    },
+    "datePublished": "2006-05-04",
+    "reviewBody": "I really enjoyed this book. It captures the essential challenge people face as they try make sense of their lives and grow to adulthood.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Washington Times"
+    }
+  }
+#########################################################################################
+"review": {
+    "@type": "Review",
+    "url": "http://www.localreviews.com/restaurants/1/2/3/daves-steak-house.html",
+    "author": {
+      "@type": "Person",
+      "name": "Lisa Kennedy",
+      "sameAs": "https://plus.google.com/114108465800532712602"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Denver Post",
+      "sameAs": "http://www.denverpost.com"
+    },
+    "datePublished": "2014-03-13T20:00",
+    "description": "Great old fashioned steaks but the salads are sub par.",
+    "inLanguage": "en",
+    "reviewRating": {
+      "@type": "Rating",
+      "worstRating": 1,
+      "bestRating": 4,
+      "ratingValue": 3.5
+    }
+  }
+FOR REVIEW:
+author : author of review
+reviewRating
+reviewRating.ratingValue
+reviewRating.bestRating
+reviewRating.worstRating
+datePublished
+
+
+
+
+=================== AGGREGATE REVIEW=========================
+For aggregate review
+- bestRating
+- worstRating
+- ratingCount or reviewCount
+- ratingValue
+
+
+"aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "88",
+    "bestRating": "100",
+    "ratingCount": "20"
+  }
+=============== contact point ========================================

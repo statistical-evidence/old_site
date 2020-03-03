@@ -1,0 +1,228 @@
+<script type='application/ld+json'>
+{
+	"@context": "http://schema.org/",
+	"@type": "Organization",
+    "additionalType": [
+    "http://www.productontology.org/id/Consulting_firm",
+    "http://www.productontology.org/id/Methodological_advisor",
+    "http://www.productontology.org/id/Statistician" ],
+    "@id": "https://www.statistician-online.com",
+    "name": "Statistician-Online",
+    "legalName" : "Statistician-Online.com",
+    "description": "Looking to hire a professional and accredited statistical consultant for your research or dissertation? UK based freelance statistician offers reliable statistics consulting services online to researchers, businesses, PhD students at affordable rates. Consultancy service for data analysis or medical statistics help",
+	"address": {
+		"@type": "PostalAddress",
+		"addressCountry": "GB",
+		"addressLocality": "Bristol",
+		"addressRegion": "England",
+		"postalCode": "BS32 8DB",
+		"streetAddress": "184 Great Meadow Road"
+	},
+   "email": "chetan@statistician-online.com",
+   "url": "https://www.statistician-online.com/",
+  "logo": "https://www.statistician-online.com/images/logo.png",
+  "contactPoint" : [
+    { "@type" : "ContactPoint",
+      "telephone" : "+447392339862",
+      "contactType" : "customer service"
+      
+    }],
+    "sameAs" : [
+    "https://www.crunchbase.com/organization/statistician-online",
+    "https://www.researchgate.net/profile/Statistician_Online",
+    "https://goo.gl/maps/BQFvYboRthu",
+    "https://www.youtube.com/channel/UCYCcg0K66kRxvOSg4P8THnw",
+    "https://www.facebook.com/statisticianonline/",
+    "https://www.linkedin.com/in/statistician-online-308544180/",
+    "https://twitter.com/Stat_online",
+    "https://www.pinterest.co.uk/chetanprajapati0832/"
+    ],
+    "founder": {
+		"@type": "Person",
+		"award": "John Henry Brookes",
+		"jobTitle": "Statistician",
+		"name": "Chetan Prajapati",
+        "sameAs" : [
+    "https://www.crunchbase.com/person/chetan-prajapati",
+    "http://www.bristol.ac.uk/clinical-sciences/people/chetan-a-prajapati/index.html" ],
+    "alumniOf": {
+        "@type": "OrganizationRole",
+        "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Leicester",
+            "sameAs": "https://en.wikipedia.org/wiki/University_of_Leicester"
+        },
+        "startDate": "2018"
+    }
+	},
+    "areaServed": {
+    "@type": "GeoShape",
+    "addressCountry": ["BE","BH","CA","CH","CY","DE","EE","ES","FI","FR","GR","IE","IT","KW","LU","LV","MT","NL","NZ","PT","SG","SI","SK","GB"]
+  },
+    "review": {
+    "@type": "Review",
+    "url": "https://goo.gl/maps/ad1f92aeuwr",
+    "author": {
+      "@type": "Person",
+      "name": "Rob Ventom"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Google"
+    },
+    "datePublished": "2019-05-28T20:00",
+    "description": "Great work mate",
+    "inLanguage": "en",
+    "reviewRating": {
+      "@type": "Rating",
+      "worstRating": 1,
+      "bestRating": 5,
+      "ratingValue": 4
+    }
+  },
+  "aggregateRating": {
+      "@type": "AggregateRating",
+              "ratingValue": "4",
+              "bestRating": "5",
+              "worstRating": "1",
+              "ratingCount": "1"
+    },
+    "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Statistical Consulting Service",
+    "description": "Freelance Statistical consultant provides statistical data analysis service using statistical methods in STATA, SPSS,R and SAS",
+    "itemListElement": [
+      {
+        "@type": "OfferCatalog",
+        "name": "Data analysis",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+               "additionalType": "http://www.productontology.org/id/Thesis",
+             "name": "Dissertation Statistics Help"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "additionalType": "http://www.productontology.org/id/Data_analysis",
+              "name": "Business Statistics"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+               "additionalType": "http://www.productontology.org/id/Epidemiology",
+              "name": "Medical Statistics"
+            }
+          }
+        ]
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Biostatistics",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "additionalType": "http://www.productontology.org/id/Biostatistics",
+              "name": "Randomized controlled trial"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "additionalType": "http://www.productontology.org/id/Bayesian_statistics",
+              "name": "Bayesian Statistics"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "additionalType": "http://www.productontology.org/id/Regression_analysis",
+              "name": "Probability and statistics"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  
+}
+</script>
+
+<script type="application/ld+json">
+
+{
+  "@context": "http://schema.org",
+  "@type": "WebSite",
+  "url": "{{ .Site.BaseURL }}",
+  {{ if .Site.Author.name -}}
+  "author": {
+    "@type": "Person",
+    "name": "{{ .Site.Author.name }}"
+  },
+  {{- end }}
+  {{ if .Site.Params.description -}}
+  "description": "{{ .Site.Params.description }}",
+  {{- end }}
+  {{ with .Site.Params.image -}}
+  "image": "{{ .url | absURL }}",
+  {{- end }}
+  {{ with .Site.Params.logo -}}
+  "thumbnailUrl": "{{ .url | absURL }}",
+  {{- end }}
+  {{ with .Site.Copyright -}}
+  "license": "{{ . }}",
+  {{- end }}
+  "name": "{{ .Site.Title }}"
+}
+
+</script>
+
+<script type="application/ld+json">
+{
+      "@context":"http://schema.org",
+      "@type": ["SiteNavigationElement", "ItemList"],
+      "itemListElement":[
+        {
+          "@type": "ListItem",
+          "additionalType": "Article",
+          "position": 1,
+          "name": "About me",
+          "description": "Statistical consultant based in Bristol, UK offering consultancy services online in all statistical aspect of data analysis",
+          "url":"https://www.statistician-online.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "additionalType": "Article",
+          "name": "Data Management",
+          "description": "Prepare your data for the analysis",
+          "url":"https://www.statistician-online.com/data-management/"
+        },
+        {
+          "@type": "ListItem",
+          "additionalType": "Article",
+          "position": 3,
+          "name": "Statistical Data Analysis",
+          "description": "Advanced data modelling using R",
+          "url":"https://www.statistician-online.com/statistical-models/"
+        },
+        {
+          "@type": "ListItem",
+          "additionalType": "Article",
+          "position": 4,
+          "name": "Reviews",
+          "description": "What clients say about our service",
+          "url":"https://www.statistician-online.com/reviews/"
+        }
+      ]
+    }</script>

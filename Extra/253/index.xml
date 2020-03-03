@@ -1,0 +1,951 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on Hire Accredited Statistician Online | Ask for Statistics Help</title>
+    <link>/</link>
+    <description>Recent content in Home on Hire Accredited Statistician Online | Ask for Statistics Help</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sat, 09 Feb 2019 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title> Bootstrapping: Parametric and Non-parametric bootstrap using loops and boot function in R</title>
+      <link>/3-basic-statistics/bootstrapping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r/</link>
+      <pubDate>Sat, 09 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/3-basic-statistics/bootstrapping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r/</guid>
+      <description>
+
+
+&lt;p&gt;We first need to understand following some fundamental concepts. The idea behind bootstrapping is very closely aligned with those concepts.&lt;/p&gt;
+&lt;p&gt;Here I have created a hypothetical study in which we are interested in finding out the average birth weight of the babies born in the UK at 37 weeks of gestation.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Experiment &lt;/strong&gt;: To find out the average weight of babies born at 37 weeks in the UK&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Random sample &lt;/strong&gt;: Random sample means each and every single individual or object has an equal probability of being chosen from the population. For example, in our study, the population is all birth happened in the UK at 37 weeks of gestation. For typical “random sample”, we will need to make sure that each and every birth happening in any corner of the UK, will be participating in our study, from which will choose some of them randomly i.e random sample.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Sample data&lt;/strong&gt;: the recorded observation or quantity from the sample of the population. Now we have gone to one local hospital and got data of the birth-weights from 20 babies. Here is the (hypothetical) sample data.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] 3331.608 3549.913 2809.252 2671.465 3383.177 3945.721 3672.601
+##  [8] 3922.416 4647.278 4088.246 3718.874 3724.443 3925.457 3112.920
+## [15] 3495.621 3651.779 3240.194 3867.347 3431.015 4163.725&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Sample statistic &lt;/strong&gt;: is the quantity of interest from sample data. The quantity of interest in our study is a mean (average). So mean is our sample statistic. So sample statistic in our sample data is &lt;strong&gt;3618&lt;/strong&gt;,&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 3617.653&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Sampling distribution (of statistic) &lt;/strong&gt;: Now we went to take a random sample of 20 babies at numerous hospitals (i.e.multiple times) in the UK. Each time, we calculate the mean birth weight and note down its value. This value will be different in each different hospital (in a statistical sense, the statistic is a random variable, will vary as variation is inherent). Here we went to 100 hospitals and took a sample of 20 babies born at that hospital and calculated the mean birth weight and plotted in the histogram.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;require(ggplot2)
+ggplot(data.frame(statistic), aes(statistic)) + geom_histogram() + labs(x= &amp;quot;Mean&amp;quot;, y= &amp;quot;Freqency&amp;quot;, title = &amp;quot;Distribution of sample means&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/3-Basic-Statistics/2019-02-09-ootstraping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;336&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;It is better to plot the histogram with optimum bin width (see &lt;a href=&#34;https://link.springer.com/article/10.1007/BF01025868&#34;&gt;Article from David Freedman&lt;/a&gt;) along with density curve using &lt;code&gt;aes(y=..density..)&lt;/code&gt;.So that the area under the density curve will be 1.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;binw &amp;lt;- 2*(IQR(statistic)/length(statistic)^(1/3))
+ggplot(data.frame(statistic), aes(statistic)) + geom_histogram(aes(y=..density..),binwidth = binw,fill=&amp;quot;darkred&amp;quot;,colour=&amp;quot;black&amp;quot;,size=1) + geom_density(aes(y=..density..),size=1) + labs(x= &amp;quot;Mean&amp;quot;, y= &amp;quot;Density&amp;quot;, title = &amp;quot;Distribution of sample means&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/3-Basic-Statistics/2019-02-09-ootstraping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r_files/figure-html/unnamed-chunk-5-1.png&#34; width=&#34;336&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Population parameter &lt;/strong&gt;: What will be the mean birth-weight of babies born in the UK if we had gone on collecting birthright of each and every single baby born in the UK. This will be only one value that what we are basically interested in. This is called the population parameter. The problem is that we want to estimate that from our limited number of observations (i.e sample data). The sample statistic will help to estimate the population parameter. The sample statistic will also be called point estimator.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Standard error(of statistic)&lt;/strong&gt; is the standard deviation (SD) of statistic from its sampling distribution. Note that SD is a statistic that measures the variability in data relative to its mean.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Confidence interval &lt;/strong&gt;: Though we are interested in population parameter i.e single value, what if our sample data may not contain it. We need to provide some measure of it. This can be achieved by building a confidence interval. We can say that the true value of the population lies in some interval with some degree of confidence.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So, in essence, we want to estimate a population parameter from the sampling distribution of the sample statistic. This sampling distribution can be generated by infinite time random sampling.&lt;/p&gt;
+&lt;p&gt;The bootstrap method is one type of re-sampling method, in which sample data (20 birth weights) considered as “population”.From this sample data, we re-sample it with a replacement-large number of time (the 1000’s). The resultant sampling distribution often (not always) approximate the (true) sampling distribution of the statistic.&lt;/p&gt;
+&lt;p&gt;Please note, that this sampling will be done with the replacement. So some single observation may be included many times ( or some may be left out completely). So sample statistic will be varied from each random sample of size n.&lt;/p&gt;
+&lt;p&gt;From this bootstrapped sampling distribution, which can estimate parameter value, standard errors (standard deviation of sample statistic) and then, calculate the confidence interval.&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;bootstapping parametric non-parametric bootstrap loop boot&#34; src=&#34;/images/bootstrap.png&#34; height=&#34;500px&#34; width=&#34;1100px&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Let,&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt;&lt;/strong&gt; is population parameter of interest which belongs to unknown population distribution &lt;strong&gt;F&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;span class=&#34;math inline&#34;&gt;\(\hat{\theta}\)&lt;/span&gt;&lt;/strong&gt; is statistic that estimate the &lt;span class=&#34;math inline&#34;&gt;\(\theta\)&lt;/span&gt; and we are interests in sampling distribution of &lt;strong&gt;&lt;span class=&#34;math inline&#34;&gt;\(\hat{\theta}\)&lt;/span&gt;&lt;/strong&gt; from fitted distribution function &lt;strong&gt;&lt;span class=&#34;math inline&#34;&gt;\(\hat{F}\)&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;span class=&#34;math inline&#34;&gt;\(\hat{\theta_0^*}\)&lt;/span&gt;,&lt;span class=&#34;math inline&#34;&gt;\(\hat{\theta_1^*}\)&lt;/span&gt;,&lt;span class=&#34;math inline&#34;&gt;\(\hat{\theta_2^*}\)&lt;/span&gt;… bootstrap estimate (statistic) to obtain sampling distribution of &lt;strong&gt;&lt;span class=&#34;math inline&#34;&gt;\(\hat{\theta^*}\)&lt;/span&gt;&lt;/strong&gt; is &lt;strong&gt;&lt;span class=&#34;math inline&#34;&gt;\(\hat{F^*}\)&lt;/span&gt;&lt;/strong&gt;. This sampling distribution is good approximation of &lt;strong&gt;&lt;span class=&#34;math inline&#34;&gt;\(\hat{F}\)&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div id=&#34;non-parametric-bootstrap&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;&lt;strong&gt;Non-Parametric bootstrap&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;We observed the sample data and we are unable to determine from which probability distribution function may have generated this sample data. In this situation, we use empirical distribution function (which is based on observed sample data) to simulate bootstrap samples (using Monte Carlo techniques).&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# loop
+theta_star &amp;lt;- vector()
+for (i in 1:1000){
+  theta_star[i] &amp;lt;- mean(sample(df,size=length(df),replace = T))
+  # First take sample with replacement from obseerved data of same size &amp;amp; then, calculte sample statistic in each, repeat this 1000 times
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;theta_boot &amp;lt;- mean(theta_star) # bootstrap estimate of theta_hat
+theta_boot&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 3617.616&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;boot_se &amp;lt;- sd(theta_star) # standard eorrs of the estimate
+boot_se&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 103.2313&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bias &amp;lt;- theta_boot - mean(df)
+bias&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] -0.03669454&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;MSE &amp;lt;- mean((theta_boot- mean(df))^2)
+MSE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 0.001346489&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;CI &amp;lt;-c(theta_boot-1.96*boot_se,theta_boot +1.96*boot_se)
+CI&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 3415.283 3819.949&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can use a &lt;code&gt;boot&lt;/code&gt; function from the &lt;code&gt;boot&lt;/code&gt; package in R.It requires a function to calculate sample statistic ( in its &lt;code&gt;statistic&lt;/code&gt; argument). The function must include observed data as the first argument and indices ( or weight) in the second argument.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;require(boot)
+theta_star_function &amp;lt;- function(x,i) mean(x[i])
+#
+B &amp;lt;- boot(data = df, statistic = theta_star_function, R=1000, stype = &amp;quot;i&amp;quot; )
+B&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## ORDINARY NONPARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = df, statistic = theta_star_function, R = 1000, stype = &amp;quot;i&amp;quot;)
+## 
+## 
+## Bootstrap Statistics :
+##     original    bias    std. error
+## t1* 3617.653 0.2896068    101.2961&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can used default plots to see whether bootstrap samples are correctly sampled.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(B)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/3-Basic-Statistics/2019-02-09-ootstraping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r_files/figure-html/unnamed-chunk-14-1.png&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Or, one can use &lt;code&gt;ggplot&lt;/code&gt; to get the same figure&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;binw &amp;lt;- 2*(IQR(B$t)/length(B$t)^(1/3))
+ggplot(data.frame(B$t), aes(B.t)) + geom_histogram(fill=&amp;quot;grey&amp;quot;, colour=&amp;quot;black&amp;quot;, binwidth = binw) + geom_vline(xintercept = B$t0, linetype=&amp;quot;dashed&amp;quot;, size=1) + labs(x=&amp;quot;Bootstrap sample statistic&amp;quot;, title=&amp;quot;Bootstrap sampling distribution of sample mean&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/3-Basic-Statistics/2019-02-09-ootstraping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r_files/figure-html/unnamed-chunk-15-1.png&#34; width=&#34;336&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;We can get confidence interval by,&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;boot.ci(B)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = B)
+## 
+## Intervals : 
+## Level      Normal              Basic         
+## 95%   (3419, 3816 )   (3414, 3817 )  
+## 
+## Level     Percentile            BCa          
+## 95%   (3418, 3821 )   (3414, 3816 )  
+## Calculations and Intervals on Original Scale&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;parametric-bootstrap&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;&lt;strong&gt;Parametric Bootstrap&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;Once we have a sample data, we may think that the observed data may have come from some known probability distribution function ( i.e normal, gamma or poisson or any).&lt;/p&gt;
+&lt;p&gt;For example in our sample birth weights, we may assume that observed birth-weight comes from normal distribution with parameter &lt;span class=&#34;math inline&#34;&gt;\(\mu\)&lt;/span&gt; = 3617.7 and &lt;span class=&#34;math inline&#34;&gt;\(\sigma\)&lt;/span&gt; = 464.6 ( which is estimated from observed data). See the below figure,&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data.frame(df), aes(df)) + geom_density() + labs(x= &amp;quot;birth weight&amp;quot;, title = &amp;quot;Distribution of observed sample birthweights&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/3-Basic-Statistics/2019-02-09-ootstraping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r_files/figure-html/unnamed-chunk-17-1.png&#34; width=&#34;336&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;So, instead of using observed data ( as a non-parametric bootstrap), we can use normal distribution function with probable parameter estimates ( which most likely the maximum likelihood estimates) for bootstrap re-sampling.&lt;/p&gt;
+&lt;p&gt;Let, first do it with help of &lt;code&gt;for&lt;/code&gt; loops in R.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;theta_star &amp;lt;- vector()
+for (i in 1:1000){
+  theta_star[i] &amp;lt;- mean(rnorm(length(df),mean = 3617.7 ,sd = 464.6))
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;theta_boot &amp;lt;- mean(theta_star) # bootstrap estimate of theta_hat
+theta_boot&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 3624.285&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;boot_se &amp;lt;- sd(theta_star) # standard eorrs of the estimate
+boot_se&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 109.4116&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;bias &amp;lt;- theta_boot - mean(df)
+bias&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 6.63217&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;MSE &amp;lt;- mean((theta_boot- mean(df))^2)
+MSE&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 43.98568&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;CI &amp;lt;-c(theta_boot-1.96*boot_se,theta_boot +1.96*boot_se)
+CI&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 3409.838 3838.731&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Now, using &lt;code&gt;boot&lt;/code&gt; function,&lt;/p&gt;
+&lt;p&gt;For parametric bootstrap, one has to specify a function in &lt;code&gt;ran.gen&lt;/code&gt; arguments, which tell the boots how random sample will be generated ( I mean, from which distribution, parameters you want to generate re-sample). The first argument will be the observed data and the second argument will be parameter estimates.This function should give random samples according to your assumed distribution function.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;gen_function &amp;lt;- function(x,mle) {
+  data &amp;lt;- rnorm(length(x),mle[1],mle[2])
+  return(data)}&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# function to calculate sample statistic 
+theta_star_function &amp;lt;- function(x,i) mean(x[i])&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The &lt;code&gt;mle&lt;/code&gt; values ( of parameter estimates ) passed to random generator function.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;B &amp;lt;- boot(data = df, sim = &amp;quot;parametric&amp;quot;, ran.gen =  gen_function, mle = c(3617.7,464.6), statistic = theta_star_function, R=1000)
+B&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## PARAMETRIC BOOTSTRAP
+## 
+## 
+## Call:
+## boot(data = df, statistic = theta_star_function, R = 1000, sim = &amp;quot;parametric&amp;quot;, 
+##     ran.gen = gen_function, mle = c(3617.7, 464.6))
+## 
+## 
+## Bootstrap Statistics :
+##     original    bias    std. error
+## t1* 3617.653 -3.941167    103.6962&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(B)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/3-Basic-Statistics/2019-02-09-ootstraping-parametric-and-non-parametric-bootstrap-using-loops-and-boot-function-in-r_files/figure-html/unnamed-chunk-27-1.png&#34; width=&#34;576&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;boot.ci(B,type = &amp;quot;perc&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = B, type = &amp;quot;perc&amp;quot;)
+## 
+## Intervals : 
+## Level     Percentile     
+## 95%   (3418, 3824 )  
+## Calculations and Intervals on Original Scale&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How to reshape data - wide or long form in the R programming language</title>
+      <link>/1-data-management/reshaping-data-into-wide-or-long-format-in-r/</link>
+      <pubDate>Sat, 02 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/1-data-management/reshaping-data-into-wide-or-long-format-in-r/</guid>
+      <description>
+&lt;script src=&#34;/rmarkdown-libs/kePrint/kePrint.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;&lt;img alt=&#34;reshape data wide long r gather melt dplyr&#34; src=&#34;/images/Reshape.png&#34; height=&#34;300px&#34; width=&#34;400px&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Reshaping though frequently required in data analysis, so often it remains confusing even if you are frequent user of &lt;code&gt;reshape&lt;/code&gt; function in R.Here I have provided more explanation with simulated data.&lt;/p&gt;
+&lt;div id=&#34;wide-to-long&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;[1] Wide to long&lt;/h4&gt;
+&lt;p&gt;Wide data: the observation has been made several time but all the observations for given person is recorded in single row in spreadsheet.For example, in clinic, person visiting every month for their blood pressure check, and nurse note down the value for each month in single row which belong to this specific person.&lt;/p&gt;
+&lt;p&gt;Let’s first create small wide data&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# wide data
+df &amp;lt;- data.frame(matrix(data = NA, nrow = 3, ncol = 5, dimnames = list(NULL, paste0(c(&amp;quot;id&amp;quot;,&amp;quot;name&amp;quot;,&amp;quot;jan&amp;quot;,&amp;quot;feb&amp;quot;,&amp;quot;march&amp;quot;)))))
+df[1,] &amp;lt;- c(1,&amp;quot;A&amp;quot;,123,120,125)
+df[2,] &amp;lt;- c(2,&amp;quot;B&amp;quot;,140,150,155)
+df[3,] &amp;lt;- c(3,&amp;quot;C&amp;quot;,96,86,97)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Our “wide” data look like&lt;/p&gt;
+&lt;table class=&#34;table&#34; style=&#34;font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+id
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+name
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+jan
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+feb
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+march
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+A
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+123
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+120
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+125
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+B
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+140
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+150
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+155
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+C
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+96
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+86
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+97
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Now rather than recording each month’s observation in row, we want data each which only one observation per row for that given person. for that we need to use standard &lt;code&gt;reshape&lt;/code&gt; command in &lt;code&gt;R&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;reshape&lt;/code&gt; has following argument:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;idvar&lt;/code&gt; : unique identifier for person,place or object on which observations(measurements) are made at different time points or repeatedly. Example &lt;code&gt;Case ID&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;varying&lt;/code&gt; : if observation for specific individuals are made at different time points, in which columns values are recorded i.e time-varying columns. Example &lt;code&gt;Jan&lt;/code&gt;, &lt;code&gt;Feb&lt;/code&gt;, &lt;code&gt;March&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;timevar&lt;/code&gt;: what will be the name of column once the time-varying columns above has been staked in rows. Example &lt;code&gt;Month&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;times&lt;/code&gt; : what will be the values (of time) once the time-varying columns above has been staked in rows. Example &lt;code&gt;Jan&lt;/code&gt;, &lt;code&gt;Feb&lt;/code&gt;, &lt;code&gt;March&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;v.names&lt;/code&gt;: what will be the values (of observations) once the time-varying columns above has been staked in rows. Example &lt;code&gt;BP&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;direction&lt;/code&gt;: data needs to converted from wide to &lt;code&gt;long&lt;/code&gt; format.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_long &amp;lt;- reshape(df,
+idvar = &amp;quot;id&amp;quot;,  
+        #[unique identifier for person,place or object on which observations(measurments) are made at different time points or repeatedly]
+
+varying = c(&amp;quot;jan&amp;quot;,&amp;quot;feb&amp;quot;,&amp;quot;march&amp;quot;),  
+        # [if observation for specific individulas are made at different time points, in which columns values are recorded i.e time-varying columns ]
+
+timevar = &amp;quot;month&amp;quot;, 
+        # [what will be the name of column once the timevarying columns above has been staked in rows]
+
+times = c(&amp;quot;jan&amp;quot;,&amp;quot;feb&amp;quot;,&amp;quot;march&amp;quot;),
+        # [what will be the values (of time) once the timevarying columns above has been staked in rows]
+
+v.names = &amp;quot;BP&amp;quot;, 
+        # [what will be the values (of observations) once the timevarying columns above has been staked in rows]
+
+direction = &amp;quot;long&amp;quot;)   
+        # [we want to convert wide df into long one])&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Our “long” data look like&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_long &amp;lt;- arrange(df_long, id)
+
+kable(df_long,format = &amp;quot;html&amp;quot;) %&amp;gt;%  kable_styling(full_width = F, position = &amp;quot;center&amp;quot;,font_size = 14)&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34;table&#34; style=&#34;font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+id
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+name
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+month
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+BP
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+A
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+jan
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+123
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+A
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+feb
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+120
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+A
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+march
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+125
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+B
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+jan
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+140
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+B
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+feb
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+150
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+B
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+march
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+155
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+C
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+jan
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+96
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+C
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+feb
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+86
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+C
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+march
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+97
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Sometime, not only one type of measurement (BP) but also other types (such as Heart rate -HR) are measured and recorded row wise. For example,&lt;/p&gt;
+&lt;p&gt;This data can be converted into “long” by using &lt;code&gt;list&lt;/code&gt; for group of time-varying columns for &lt;code&gt;varying&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_long &amp;lt;- reshape(df,
+idvar = &amp;quot;id&amp;quot;,  
+varying = list(c(&amp;quot;BP_jan&amp;quot;,&amp;quot;BP_feb&amp;quot;,&amp;quot;BP_march&amp;quot;),c(&amp;quot;HR_jan&amp;quot;,&amp;quot;HR_feb&amp;quot;,&amp;quot;HR_march&amp;quot;) ),  
+timevar = &amp;quot;month&amp;quot;, 
+times = c(&amp;quot;jan&amp;quot;,&amp;quot;feb&amp;quot;,&amp;quot;march&amp;quot;),
+v.names = c(&amp;quot;BP&amp;quot;,&amp;quot;HR&amp;quot;), 
+direction = &amp;quot;long&amp;quot;)   &lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_long &amp;lt;- arrange(df_long, id)&lt;/code&gt;&lt;/pre&gt;
+&lt;table class=&#34;table&#34; style=&#34;font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+id
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+name
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+month
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+BP
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+HR
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+A
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+jan
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+123
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+72
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+A
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+feb
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+120
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+70
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+A
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+march
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+125
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+71
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+B
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+jan
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+140
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+85
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+B
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+feb
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+150
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+82
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+B
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+march
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+155
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+86
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+C
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+jan
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+96
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+65
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+C
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+feb
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+86
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+52
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+C
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+march
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+97
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+59
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div id=&#34;long-to-wide&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;[2] long to wide&lt;/h4&gt;
+&lt;p&gt;To make data “wide” from long, the &lt;code&gt;reshape&lt;/code&gt; function will need only two main arguments apart from id.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;v.names&lt;/code&gt; : which column represent &lt;strong&gt;values&lt;/strong&gt; of the observations in long data ( so that &lt;code&gt;reshape&lt;/code&gt; function can transform these values into rows for each ID)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;timevar&lt;/code&gt; : which column represent &lt;strong&gt;the timing&lt;/strong&gt; of the observations ( so that &lt;code&gt;reshape&lt;/code&gt; function associate it with the value for given time for each ID )&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Here is the example&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;df_wide &amp;lt;- reshape(df_long,
+       idvar = &amp;quot;id&amp;quot;,
+       # unique identifier
+       v.names = c(&amp;quot;BP&amp;quot;,&amp;quot;HR&amp;quot;),
+       # the columns represent the value of the observation (BP,HR)
+       timevar = &amp;quot;month&amp;quot;,
+       # the column represent the timing of the observations
+       direction = &amp;quot;wide&amp;quot;,
+       sep = &amp;quot;_&amp;quot;
+        )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Here is the wide data&lt;/p&gt;
+&lt;table class=&#34;table&#34; style=&#34;font-size: 14px; width: auto !important; margin-left: auto; margin-right: auto;&#34;&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+id
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+name
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+BP_jan
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+HR_jan
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+BP_feb
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+HR_feb
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+BP_march
+&lt;/th&gt;
+&lt;th style=&#34;text-align:left;&#34;&gt;
+HR_march
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+A
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+123
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+72
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+120
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+70
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+125
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+71
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+B
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+140
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+85
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+150
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+82
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+155
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+86
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+7
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+3
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+C
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+96
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+65
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+86
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+52
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+97
+&lt;/td&gt;
+&lt;td style=&#34;text-align:left;&#34;&gt;
+59
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Generalized linear model (GLM) : Poisson regression for count and rate</title>
+      <link>/4-statistical-modelling/4-1-discrete-response/4-1-3-count-response/count-data-models/</link>
+      <pubDate>Thu, 31 Jan 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/4-statistical-modelling/4-1-discrete-response/4-1-3-count-response/count-data-models/</guid>
+      <description>
+
+
+&lt;div id=&#34;what-is-a-count&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What is a count ?&lt;/h3&gt;
+&lt;p&gt;Count is a number which is &lt;strong&gt;discrete&lt;/strong&gt; and &lt;strong&gt;non-negative&lt;/strong&gt;. Discrete means a number which is a countable and distinct. For example, number of road accidents. Road accidents can be 2 or 852 but can not be 2.1 or 85.5. So its discrete i.e integer. This is different to numeric continuous variable (such as blood pressure 120.2,135.9) which modelled differently.&lt;/p&gt;
+&lt;p&gt;Count may also have contextual information i.e with time, area or length. Such as number of road accidents in given year, number of rain drops in square meter area. When the count is associated with any denominators, rate can be derived. For example, we observe 25 number of maternity claims from 850 women in year then the rate of claims will be 29 per 1000 women per year.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;probability-distributions-associated-with-the-count-random-variable&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Probability distribution(s) associated with the count random variable&lt;/h3&gt;
+&lt;p&gt;First we need to clarify what is a distribution.&lt;strong&gt;The Distribution is the specification of probability associated with the value taken by random variable on random experiment&lt;/strong&gt;. For example, in random experiment of counting number of rain drops in square meter area. The random variable is number of rain drops. Once the experiment has been performed, we count the drop which may be 10. The random variable X taken the value of 10.We do this experiment again and its 35. So random variable X has taken the value of 35.&lt;/p&gt;
+&lt;p&gt;Now if we know the average rate of some event &lt;span class=&#34;math inline&#34;&gt;\([\lambda]\)&lt;/span&gt; in which event happening indepdently in time. Then the number of event in any time period has poisson distribution.&lt;/p&gt;
+&lt;p&gt;For example, in neighborhood road, on avaerge 2 cars passing by every hour. We noted the number of cars passing by continuously for 24 hours. We may get following numbers&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;set.seed(125)
+rpois(24,2)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  [1] 3 0 1 1 5 5 2 1 2 2 0 3 1 0 2 2 2 4 2 3 1 3 3 1&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We can derive the probability associated with each event and plot it with number of cars ( X axis ) and probability associated with it on Y axis&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;set.seed(125)
+X &amp;lt;- rpois(24,2)
+probs &amp;lt;- dpois(X,2)
+require(ggplot2)
+
+ggplot(data.frame(X,probs), aes(X,probs)) + geom_bar(stat = &amp;quot;identity&amp;quot;) + scale_x_continuous(breaks=seq(0,5,by=1)) + theme_classic()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/4-Statistical-Modelling/4-1-Discrete-response/4-1-3-Count-response/2019-01-31-count-data-models_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;require(dummies)
+x &amp;lt;- sample(x=c(&amp;quot;A&amp;quot;,&amp;quot;B&amp;quot;),size=100, replace=TRUE, prob=c(0.5,0.5)) 
+linpred &amp;lt;- cbind(1, dummy(x)[, -1]) %*% c(0.2, 0.4) 
+y  &amp;lt;- exp(linpred) 
+df &amp;lt;- data.frame(x,y)
+fit &amp;lt;- glm(y~x,family = poisson(), df)
+summary(fit)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Call:
+## glm(formula = y ~ x, family = poisson(), data = df)
+## 
+## Deviance Residuals: 
+##        Min          1Q      Median          3Q         Max  
+## -8.635e-09  -8.635e-09  -8.635e-09   0.000e+00   0.000e+00  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&amp;gt;|z|)  
+## (Intercept)   0.2000     0.1231   1.624   0.1043  
+## xB            0.4000     0.1646   2.430   0.0151 *
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 5.9609e+00  on 99  degrees of freedom
+## Residual deviance: 4.0263e-15  on 98  degrees of freedom
+## AIC: Inf
+## 
+## Number of Fisher Scoring iterations: 4&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The prime distribution of count is poisson. The other models are available to overcome two majors issues in counts : over-dispersion (or less often under-dispersion) and excess zeros. Or sometime zero is impossible value for the outcome ( such length of stay-no 0 length of stay), in this condition, zero truncated model is useful.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;To overcome over or under dispersion:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Negative Binomial distribution (NB)&lt;/li&gt;
+&lt;li&gt;Poisson Inverse Gaussian (PIG)&lt;/li&gt;
+&lt;li&gt;Generalized Negative Binomial Model&lt;/li&gt;
+&lt;li&gt;Generalised Poisson&lt;/li&gt;
+&lt;li&gt;Heterogeneous Negative Binomial model (NB-H)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;To ovecome excess zero’s:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;zero-inflated Poisson (ZIP)&lt;/li&gt;
+&lt;li&gt;zero-inflated negative binomial (ZINB)&lt;/li&gt;
+&lt;li&gt;Hurdle model&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;To model outcome where 0 is impossible value&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;zero truncated models&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;figure&#34;&gt;
+&lt;img src=&#34;/images/poisson_models_types.PNG&#34; alt=&#34;Figure 1 Models for count data: mean-variance relationships and its parameterisation&#34; /&gt;
+&lt;p class=&#34;caption&#34;&gt;Figure 1 &lt;strong&gt;Models for count data: mean-variance relationships and its parameterisation&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;poisson-distribution&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;1 Poisson distribution&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;single parameter&lt;/li&gt;
+&lt;li&gt;mean &lt;span class=&#34;math inline&#34;&gt;\([\mu]\)&lt;/span&gt; is equal to variance &lt;span class=&#34;math inline&#34;&gt;\([\mu]\)&lt;/span&gt;, also called dispersion&lt;/li&gt;
+&lt;li&gt;in real life datasets, more often there will be higher variability or correlation than model allows (over-dispersion) which leads to biased standard errors ( so as misleading significance of covariate)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;negative-binomial&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;2 Negative Binomial&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;has additional dispersion parameter &lt;span class=&#34;math inline&#34;&gt;\([\alpha]\)&lt;/span&gt; to accommodate excess variability. when the dispersion parameter is zero,
+the model becomes Poisson&lt;/li&gt;
+&lt;li&gt;can be traditional negative binomial (NB1) or quadratic negative binomial (NB2)&lt;/li&gt;
+&lt;li&gt;Only correct over-dispersion ( not under-dispersion of poisson)&lt;/li&gt;
+&lt;li&gt;form of Poisson-gamma mixture with dispersion parameter &lt;span class=&#34;math inline&#34;&gt;\([\alpha]\)&lt;/span&gt; has gamma distribution. Gamma distribution is very flexible in shape so most (not all) dispersed count data modelled well with NB&lt;/li&gt;
+&lt;li&gt;It is possible that NB may not correct over-dispersion in a Poisson model&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;poisson-inverse-gaussian-pig&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;3 Poisson Inverse Gaussian (PIG)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Similler to negative binomial except the dispersion parameter &lt;span class=&#34;math inline&#34;&gt;\([\alpha]\)&lt;/span&gt; has inverse Gaussian distribution&lt;/li&gt;
+&lt;li&gt;Available in R &lt;code&gt;gamlass&lt;/code&gt; package&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;generalized-negative-binomial-model-gnb&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;4 Generalized Negative Binomial Model (GNB)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;The GNB parametrizes the exponent on the second term of the
+negative binomial variance.&lt;/li&gt;
+&lt;li&gt;To get initial idea whether data is suited to NB1 or NB2 or NB-P&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;generalised-poissson-models&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;5 Generalised Poissson Models&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Si miller to above models but dispersion parameter can take negative values which also correct under dispersion if present&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;heterogeneous-negative-binomail-model-nb-h&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;6 Heterogeneous Negative Binomail model (NB-H)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Dispersion parameter can be associated with particular covariate which bring significant dispersion in the model.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;exact-poisson-regression&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;7 Exact poisson regression&lt;/h4&gt;
+&lt;p&gt;for unbalanced and sparse count data&lt;/p&gt;
+&lt;p&gt;In count model log of count are modelled with respect to linear predictors. This is will make sure that predicted count will always be positive.&lt;/p&gt;
+&lt;p&gt;The expected percentage of zero counts on the basis of the Poisson
+model is under 1%. If mean of count response is 5 or below and some 30% of the count observations consist of zeros,ZIP or ZINB will be good choice.&lt;/p&gt;
+&lt;p&gt;Article is being updated …&lt;/p&gt;
+&lt;p&gt;Ref:&lt;/p&gt;
+&lt;p&gt;Hilbe, J. (2014). Modeling Count Data. Cambridge: Cambridge University Press. &lt;a href=&#34;doi:10.1017/CBO9781139236065&#34; class=&#34;uri&#34;&gt;doi:10.1017/CBO9781139236065&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/_header/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/_header/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;/images/logo.png&#34; alt=&#34;statistics online hire freelance cheap&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

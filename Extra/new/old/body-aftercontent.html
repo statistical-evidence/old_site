@@ -1,0 +1,27 @@
+  </div>
+  
+  
+  {{if .Params.tags }}
+  <div id="tags">
+    {{ range $index, $tag := .Params.tags }}
+      <a class="label label-default" href="{{$.Site.BaseURL}}
+tags/{{ $tag | urlize }}">{{ $tag }}</a>
+    {{ end }}
+  </div>
+{{end}}
+    
+  
+
+   {{ partial "disqus.html" . }}
+  </div>
+</div>
+
+{{ partial "next-prev-page.html" . }}
+
+</section>
+<div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+  <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+</div>    
+
+{{ partial "original/scripts.html" . }}
+

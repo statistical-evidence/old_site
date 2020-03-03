@@ -1,0 +1,254 @@
+<script type='application/ld+json'>
+{
+	"@context": "http://schema.org/",
+	"@type": "Organization",
+    "additionalType": [
+    "LocalBusiness",
+    "http://www.productontology.org/doc/Statistician",
+    "http://www.productontology.org/doc/Methodological_advisor" ],
+    "@id": "https://www.statistician-online.com",
+    "name": "Statistician-Online",
+    "legalName" : "Statistician-Online.com",
+    "description": "Looking to hire a professional and accredited statistical consultant for your research or dissertation? UK based freelance statistician offers reliable statistics consulting services online to researchers, businesses, PhD students at affordable rates. Consultancy service for data analysis or medical statistics help",
+	"address": {
+		"@type": "PostalAddress",
+		"addressCountry": "GB",
+		"addressLocality": "Bristol",
+		"addressRegion": "England",
+		"postalCode": "BS32 8DB",
+		"streetAddress": "184 Great Meadow Road"
+	},
+   "email": "chetan@statistician-online.com",
+   "url": "https://www.statistician-online.com/",
+  "logo": "https://www.statistician-online.com/images/logo.png",
+  "contactPoint" : [
+    { "@type" : "ContactPoint",
+      "telephone" : "+447392339862",
+      "contactType" : "customer service"
+      
+    }],
+    "sameAs" : [
+    "https://www.crunchbase.com/organization/statistician-online",
+    "https://www.researchgate.net/profile/Statistician_Online",
+    "https://goo.gl/maps/BQFvYboRthu",
+    "https://www.youtube.com/channel/UCYCcg0K66kRxvOSg4P8THnw",
+    "https://www.facebook.com/statisticianonline/",
+    "https://www.linkedin.com/in/statistician-online-308544180/",
+    "https://twitter.com/Stat_online"
+    ],
+    "founder": {
+		"@type": "Person",
+		"award": "John Henry Brookes",
+		"jobTitle": "Statistician",
+		"name": "Chetan Prajapati",
+        "sameAs" : [
+    "https://www.crunchbase.com/organization/statistician-online",
+    "http://www.bristol.ac.uk/clinical-sciences/people/chetan-a-prajapati/index.html" ],
+    "alumniOf": {
+        "@type": "OrganizationRole",
+        "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "University of Leicester",
+            "sameAs": "https://en.wikipedia.org/wiki/University_of_Leicester"
+        },
+        "startDate": "2018"
+    }
+	},
+    "areaServed": {
+    "@type": "geoShape",
+    "addressCountry": ["BE","BH","CA","CH","CY","DE","EE","ES","FI","FR","GR","IE","IT","KW","LU","LV","MT","NL","NZ","PT","SG","SI","SK","GB"]
+  },
+    "review": {
+    "@type": "Review",
+    "url": "https://goo.gl/maps/ad1f92aeuwr",
+    "author": {
+      "@type": "Person",
+      "name": "Rob Ventom"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Google"
+    },
+    "datePublished": "2019-05-28T20:00",
+    "description": "Great work mate",
+    "inLanguage": "en",
+    "reviewRating": {
+      "@type": "Rating",
+      "worstRating": 1,
+      "bestRating": 5,
+      "ratingValue": 4
+    }
+  },
+  "aggregateRating": {
+      "@type": "AggregateRating",
+              "ratingValue": "4",
+              "bestRating": "5",
+              "worstRating": "1",
+              "ratingCount": "1"
+    },
+    "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Statistical Consulting Service",
+    "description": "Hire Accredited Statistician Online Freelance Statistical Consulting",
+    "itemListElement": [
+      {
+        "@type": "OfferCatalog",
+        "name": "Statistical data analysis",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Hire a statistician for research"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Dissertation statistics help"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "SAS-R-SPSS-STATA-Excel"
+            }
+          }
+        ]
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Statistics help online",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Statistical consulting"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "freelance-medical-statistics"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "biostatistics consulting"
+            }
+          }
+        ]
+      }
+    ]
+  }
+    
+  
+}
+</script>
+
+
+
+###############
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "additionalType": [
+    "http://www.productontology.org/doc/Statistician",
+    "http://www.productontology.org/doc/Methodological_advisor" ],
+  "image": [
+    "https://www.statistician-online.com/images/bio.png",
+    "https://www.statistician-online.com/images/cover.png"
+   ],
+  "@id": "https://www.statistician-online.com",
+  "name": "Statistician Online",
+  "legalName" : "Statistician-Online.com",
+  "sameAs" : [
+    "https://www.crunchbase.com/organization/statistician-online",
+    "https://www.researchgate.net/profile/Statistician_Online",
+    "https://goo.gl/maps/BQFvYboRthu",
+    "https://www.youtube.com/channel/UCYCcg0K66kRxvOSg4P8THnw",
+    "https://www.facebook.com/statisticianonline/",
+    "https://www.linkedin.com/in/statistician-online-308544180/",
+    "https://twitter.com/Stat_online"
+    ],
+  "priceRange" : "£££",
+  "description": "Statistician-Online.com offers Transparent & Reliable Statistical Consultancy Service Online to Researchers, Businesses & PhD students. Hire Freelance Statistician for Data Analysis or Medical Statistics help in Research project or Dissertation in STATA, SPSS, R, SAS",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Great Meadow Road",
+    "addressLocality": "Bristol",
+    "addressRegion": "South Gloucestershire",
+    "postalCode": "BS32 8DB",
+    "addressCountry": "GB"
+  },
+  "review": {
+    "@type": "Review",
+    "url": "https://goo.gl/maps/ad1f92aeuwr",
+    "author": {
+      "@type": "Person",
+      "name": "Rob Ventom"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Google"
+    },
+    "datePublished": "2019-05-28T20:00",
+    "description": "Great work mate",
+    "inLanguage": "en",
+    "reviewRating": {
+      "@type": "Rating",
+      "worstRating": 1,
+      "bestRating": 5,
+      "ratingValue": 4
+    }
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 51.525883,
+    "longitude": -2.536412
+  },
+  "aggregateRating": {
+      "@type": "AggregateRating",
+              "ratingValue": "4",
+              "bestRating": "5",
+              "worstRating": "1",
+              "ratingCount": "1"
+    },
+  "url": "https://www.statistician-online.com",
+  "telephone": "+447392339862",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "17:30",
+      "closes": "23:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "00:00",
+      "closes": "23:59"
+    }
+    
+  ]
+  
+  
+}
+</script
